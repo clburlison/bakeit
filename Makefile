@@ -12,18 +12,28 @@ BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 REVISION = $(shell git rev-parse HEAD)
 REVSHORT = $(shell git rev-parse --short HEAD)
 USER = $(shell whoami)
-GOVERSION = $(shell go version | awk '{print $$3}')
-NOW	= $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
-SHELL = /bin/bash
+PKGDIR_TMP = "/private/tmp/bakeit_pkgdir_tmp"
 
 ifneq ($(OS), Windows_NT)
-	CURRENT_PLATFORM = linux
+	# If on macOS, set the shell to bash explicitly
 	ifeq ($(shell uname), Darwin)
 		SHELL := /bin/bash
-		CURRENT_PLATFORM = darwin
 	endif
+
+	# The output binary name is different on Windows, so we're explicit here
+	OUTPUT = bakeit
+
+	# To populate version metadata, we use unix tools to get certain data
+	GOVERSION = $(shell go version | awk '{print $$3}')
+	NOW	= $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 else
-	CURRENT_PLATFORM = windows
+	# The output binary name is different on Windows, so we're explicit here
+	OUTPUT = bakeit.exe
+
+	# To populate version metadata, we use windows tools to get the certain data
+	GOVERSION_CMD = "(go version).Split()[2]"
+	GOVERSION = $(shell powershell $(GOVERSION_CMD))
+	NOW	= $(shell powershell Get-Date -format s)
 endif
 
 BUILD_VERSION = "\
@@ -65,6 +75,8 @@ clean:
 .pre-build:
 	mkdir -p build/darwin
 	mkdir -p build/linux
+	mkdir -p build/windows
+	mkdir -p ${PKGDIR_TMP}
 
 INSTALL_STEPS := \
 	install-bakeit
@@ -83,8 +95,9 @@ install-bakeit: .pre-bakeit
 	go install -ldflags ${BUILD_VERSION} ./cmd/bakeit
 
 xp-bakeit: .pre-build .pre-bakeit
-	GOOS=darwin go build -i -o build/darwin/bakeit -ldflags ${BUILD_VERSION} ./cmd/bakeit
-	GOOS=linux CGO_ENABLED=0 go build -i -o build/linux/bakeit  -ldflags ${BUILD_VERSION} ./cmd/bakeit
+	GOOS=darwin go build -i -o build/darwin/${OUTPUT} -ldflags ${BUILD_VERSION} ./cmd/bakeit
+	GOOS=linux go build -i -o build/linux/${OUTPUT} -pkgdir ${PKGDIR_TMP}_linux -ldflags ${BUILD_VERSION} ./cmd/bakeit
+	GOOS=windows GOARCH=386 go build -i -o build/windows/${OUTPUT} -pkgdir ${PKGDIR_TMP}_windows -ldflags ${BUILD_VERSION} ./cmd/bakeit
 
 release-zip: xp-bakeit xp-mdmctl
 	zip -r bakeit_${VERSION}.zip build/
