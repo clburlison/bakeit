@@ -1,0 +1,11 @@
+[[constraint]]
+  name = "github.com/boltdb/bolt"
+  revision = "124c6e374db046969d8ef04e583f21a033bc43ec"
+
+[[constraint]]
+  name = "github.com/go-kit/kit"
+  version = "v0.6.0"
+
+[[constraint]]
+  name = "github.com/pkg/errors"
+  version = "v0.8.0"
