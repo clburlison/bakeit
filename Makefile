@@ -76,7 +76,6 @@ clean:
 	mkdir -p build/darwin
 	mkdir -p build/linux
 	mkdir -p build/windows
-	mkdir -p ${PKGDIR_TMP}
 
 INSTALL_STEPS := \
 	install-bakeit
@@ -99,5 +98,5 @@ xp-bakeit: .pre-build .pre-bakeit
 	GOOS=linux go build -i -o build/linux/${OUTPUT} -pkgdir ${PKGDIR_TMP}_linux -ldflags ${BUILD_VERSION} ./cmd/bakeit
 	GOOS=windows GOARCH=386 go build -i -o build/windows/${OUTPUT} -pkgdir ${PKGDIR_TMP}_windows -ldflags ${BUILD_VERSION} ./cmd/bakeit
 
-release-zip: xp-bakeit xp-mdmctl
+release-zip: xp-bakeit
 	zip -r bakeit_${VERSION}.zip build/
