@@ -1,6 +1,14 @@
+# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
+# for detailed Gopkg.toml documentation.
+
 [[constraint]]
-  name = "github.com/boltdb/bolt"
-  revision = "124c6e374db046969d8ef04e583f21a033bc43ec"
+  name = "github.com/groob/mackit"
+  source = "github.com/clburlison/mackit"
+  branch = "dmgutils"
+
+[[constraint]]
+  name = "github.com/groob/plist"
+  revision = "2805b357fb2349d3a53ad2d5a5d00d191d9a37c9"
 
 [[constraint]]
   name = "github.com/go-kit/kit"
@@ -9,3 +17,11 @@
 [[constraint]]
   name = "github.com/pkg/errors"
   version = "v0.8.0"
+
+[[constraint]]
+  name = "github.com/cavaliercoder/grab"
+  version = "v2.0.0"
+
+[[constraint]]
+  name = "github.com/h2non/filetype"
+  version = "v1.0.5"
