@@ -17,7 +17,7 @@ import (
 func main() {
 	config := bakeitClient.Config()
 	fmt.Printf("%s", config)
-	user, err := user.Current()
+	user, _ := user.Current()
 	if user.Uid != "0" {
 		fmt.Println("Please run as root!")
 		os.Exit(1)
@@ -74,8 +74,14 @@ Loop:
 			fmt.Fprintf(os.Stderr, "Mount failed: %v\n", err)
 			os.Exit(1)
 		}
-		dmgMountPoint = mountpoints[0] // TODO: Can I assume 0 is correct?
+		fmt.Printf("Mountpoints: %v \n", mountpoints)
+		if len(mountpoints) > 1 {
+			fmt.Fprintf(os.Stderr, "More than one mount path returned\n")
+			os.Exit(1)
+		}
+		dmgMountPoint = mountpoints[0]
 		packages := checkExt(".pkg", dmgMountPoint)
+		fmt.Printf("Packages: %v \n", packages)
 		if len(packages) > 1 {
 			fmt.Fprintf(os.Stderr, "This dmg has more than one package\n")
 			os.Exit(1)

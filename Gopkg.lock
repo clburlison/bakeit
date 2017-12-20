@@ -10,11 +10,8 @@
 [[projects]]
   branch = "dmgutils"
   name = "github.com/groob/mackit"
-  packages = [
-    "dmgutils",
-    "install/pkg"
-  ]
-  revision = "137320187e607919f1bfac64438c32e1fdce0fd9"
+  packages = ["dmgutils"]
+  revision = "356c466aafcd6c42f329fa73bc4f572a4f2fcfd8"
   source = "github.com/clburlison/mackit"
 
 [[projects]]
@@ -36,6 +33,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "74e510a47c434354155c782d25c17c6036b9049e0261c2aeb720599d97fe9ce0"
+  inputs-digest = "a68927c8ac244221c565d8b65eee33b261dad9ddaa13ffb7646483720ce6172e"
   solver-name = "gps-cdcl"
   solver-version = 1
