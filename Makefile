@@ -13,6 +13,7 @@ REVISION = $(shell git rev-parse HEAD)
 REVSHORT = $(shell git rev-parse --short HEAD)
 USER = $(shell whoami)
 PKGDIR_TMP = "/private/tmp/bakeit_pkgdir_tmp"
+WORKSPACE = ${GOPATH}/src/github.com/clburlison/bakeit
 
 ifneq ($(OS), Windows_NT)
 	CURRENT_PLATFORM = linux
@@ -48,7 +49,25 @@ BUILD_VERSION = "\
 	-X github.com/clburlison/bakeit/vendor/github.com/bakeit/go4/version.revision=${REVISION} \
 	-X github.com/clburlison/bakeit/vendor/github.com/bakeit/go4/version.goVersion=${GOVERSION}"
 
-WORKSPACE = ${GOPATH}/src/github.com/clburlison/bakeit
+define HELP_TEXT
+
+  Makefile commands
+
+	make deps         - Install dependent programs and libraries
+	make clean        - Delete all build artifacts
+
+	make build        - Build the code
+	make build-all    - Build the code for all platforms
+	make package      - Build macOS package (Not yet implemented)
+
+	make test         - Run the Go tests
+	make lint         - Run the Go linters (Not yet implemented)
+
+endef
+
+help:
+	$(info $(HELP_TEXT))
+
 check-deps:
 ifneq ($(shell test -e ${WORKSPACE}/Gopkg.lock && echo -n yes), yes)
 	@echo "folder is cloned in the wrong place, copying to a Go Workspace"
@@ -69,7 +88,11 @@ deps: check-deps
 test:
 	go test -cover -race -v $(shell go list ./... | grep -v /vendor/)
 
+lint:
+	go vet ./...
+
 build: bakeit
+build-all: xp-bakeit
 
 clean:
 	rm -rf build/
@@ -79,11 +102,6 @@ clean:
 	mkdir -p build/darwin
 	mkdir -p build/linux
 	mkdir -p build/windows
-
-INSTALL_STEPS := \
-	install-bakeit
-
-install-local: $(INSTALL_STEPS)
 
 APP_NAME = bakeit
 
