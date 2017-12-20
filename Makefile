@@ -15,9 +15,11 @@ USER = $(shell whoami)
 PKGDIR_TMP = "/private/tmp/bakeit_pkgdir_tmp"
 
 ifneq ($(OS), Windows_NT)
+	CURRENT_PLATFORM = linux
 	# If on macOS, set the shell to bash explicitly
 	ifeq ($(shell uname), Darwin)
 		SHELL := /bin/bash
+		CURRENT_PLATFORM = darwin
 	endif
 
 	# The output binary name is different on Windows, so we're explicit here
@@ -29,6 +31,7 @@ ifneq ($(OS), Windows_NT)
 else
 	# The output binary name is different on Windows, so we're explicit here
 	OUTPUT = bakeit.exe
+	CURRENT_PLATFORM = windows
 
 	# To populate version metadata, we use windows tools to get the certain data
 	GOVERSION_CMD = "(go version).Split()[2]"
@@ -96,7 +99,7 @@ install-bakeit: .pre-bakeit
 xp-bakeit: .pre-build .pre-bakeit
 	GOOS=darwin go build -i -o build/darwin/${OUTPUT} -ldflags ${BUILD_VERSION} ./cmd/bakeit
 	GOOS=linux go build -i -o build/linux/${OUTPUT} -pkgdir ${PKGDIR_TMP}_linux -ldflags ${BUILD_VERSION} ./cmd/bakeit
-	GOOS=windows GOARCH=386 go build -i -o build/windows/${OUTPUT} -pkgdir ${PKGDIR_TMP}_windows -ldflags ${BUILD_VERSION} ./cmd/bakeit
+	GOOS=windows GOARCH=386 go build -i -o build/windows/${OUTPUT}.exe -pkgdir ${PKGDIR_TMP}_windows -ldflags ${BUILD_VERSION} ./cmd/bakeit
 
 release-zip: xp-bakeit
 	zip -r bakeit_${VERSION}.zip build/
