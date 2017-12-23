@@ -17,7 +17,7 @@ func Setup() {
 		fmt.Println("Please run as root!")
 		os.Exit(1)
 	}
-	file, err := Download(".", "https://packages.chef.io/files/stable/chef/13.6.4/mac_os_x/10.13/chef-13.6.4-1.dmg")
+	file, err := Download(".", "https://packages.chef.io/files/stable/chef/13.6.4/mac_os_x/10.13/chef-13.6.4-1.dmg", true)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error downloading file: %s\n", err)
 		os.Exit(1)
