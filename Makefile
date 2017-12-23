@@ -61,7 +61,7 @@ define HELP_TEXT
 	make package      - Build macOS package (Not yet implemented)
 
 	make test         - Run the Go tests
-	make lint         - Run the Go linters (Not yet implemented)
+	make lint         - Run the Go linters
 
 endef
 
