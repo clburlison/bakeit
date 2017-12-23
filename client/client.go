@@ -10,24 +10,31 @@ type Settings struct {
 	LogLevel             string
 	LogLocation          string
 	ValidationClientName string
+	ValidationKey        string
 	ChefServerURL        string
+	JSONAttribs          string
+	SSLVerifyMode        string
+	LocalKeyGeneration   bool
+	RestTimeout          int
+	HTTPRetryCount       int
+	NoLazyLoad           bool
 	NodeName             string
 }
 
 // https://golang.org/pkg/text/template/
-// TODO: Currently an empty value is passed a newline is created
+// TODO: If an empty value is passed a newline is created
 var client = `# https://docs.chef.io/config_rb_client.html
 {{if .LogLevel}}log_level              {{.LogLevel}}{{end}}
 {{if .LogLocation}}log_location           {{.LogLocation}}{{end}}
-validation_client_name '{{.ValidationClientName}}'
-validation_key         File.expand_path('/etc/chef/validation.pem')
-chef_server_url        '{{.ChefServerURL}}'
-json_attribs           '/etc/chef/run-list.json'
-ssl_verify_mode        :verify_peer
-local_key_generation   true
-rest_timeout           30
-http_retry_count       3
-no_lazy_load           false
+{{if .ValidationClientName}}validation_client_name '{{.ValidationClientName}}'{{end}}
+{{if .ValidationKey}}validation_key         File.expand_path('{{.ValidationKey}}'){{end}}
+{{if .ChefServerURL}}chef_server_url        '{{.ChefServerURL}}'{{end}}
+{{if .JSONAttribs}}json_attribs           '{{.JSONAttribs}}'{{end}}
+{{if .SSLVerifyMode}}ssl_verify_mode        {{.SSLVerifyMode}}{{end}}
+{{if .LocalKeyGeneration}}local_key_generation   {{.LocalKeyGeneration}}{{end}}
+{{if .RestTimeout}}rest_timeout           {{.RestTimeout}}{{end}}
+{{if .HTTPRetryCount}}http_retry_count       {{.HTTPRetryCount}}{{end}}
+{{if .NoLazyLoad}}no_lazy_load           {{.NoLazyLoad}}{{end}}
 
 whitelist = []
 automatic_attribute_whitelist whitelist
@@ -42,24 +49,19 @@ ohai.plugin_path += [
   '/etc/chef/ohai_plugins'
 ]
 
-{{if .NodeName}}node_name "{{.NodeName}}"{{- end}}`
+{{if .NodeName}}node_name "{{.NodeName}}"{{- end}}
+`
 
 // Config is the formated client.rb file
-func Config() string {
+func Config(set Settings) (config string, err error) {
 	var out bytes.Buffer
-	settings := Settings{":info",
-		"STDOUT",
-		"corp-validator",
-		"https://chef.example.com/organizations/MyOrg",
-		"AAXXXYYYZZZ"}
 	tmpl, err := template.New("client.rb").Parse(client)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
-	err = tmpl.Execute(&out, settings)
+	err = tmpl.Execute(&out, set)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
-	// return out.String()
-	return "testing\n"
+	return out.String(), nil
 }
