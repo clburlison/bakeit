@@ -11,13 +11,18 @@ import (
 	"github.com/groob/mackit/install/pkg"
 )
 
+var chefURL = "https://packages.chef.io/files/stable/" +
+	"chef/13.6.4/mac_os_x/10.13/chef-13.6.4-1.dmg"
+
+// Setup is the main platform specific function that is called
+// to setup a chef node.
 func Setup() {
 	user, _ := user.Current()
 	if user.Uid != "0" {
 		fmt.Println("Please run as root!")
 		os.Exit(1)
 	}
-	file, err := Download(".", "https://packages.chef.io/files/stable/chef/13.6.4/mac_os_x/10.13/chef-13.6.4-1.dmg", true)
+	file, err := Download(chefURL, ".")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error downloading file: %s\n", err)
 		os.Exit(1)

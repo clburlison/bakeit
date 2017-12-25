@@ -8,6 +8,8 @@ import (
 	"os"
 	"path"
 	"testing"
+
+	"github.com/clburlison/bakeit/client/config"
 )
 
 type TestDL struct {
@@ -25,13 +27,14 @@ var testDl = []TestDL{
 }
 
 func TestDownload(t *testing.T) {
+	config.Verbose = false
 	for i, test := range testDl {
 		file, err := ioutil.TempFile(os.TempDir(), "gotest_")
 		defer os.Remove(file.Name())
 		if err != nil {
 			t.Errorf("#%d: Unable to create temp file %s\n", i, err)
 		}
-		_, err = Download(test.url, file.Name(), false)
+		_, err = Download(test.url, file.Name())
 		if err != nil {
 			t.Errorf("#%d: Unable to download '%s' file\n", i, path.Base(test.url))
 		}

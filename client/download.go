@@ -5,20 +5,21 @@ import (
 	"time"
 
 	"github.com/cavaliercoder/grab"
+	"github.com/clburlison/bakeit/client/config"
 )
 
 // Download a web resource; return file location and errors
-func Download(downloadURL string, savePath string, progress bool) (msg string, err error) {
+func Download(downloadURL string, savePath string) (msg string, err error) {
 	// create client
 	client := grab.NewClient()
 	req, _ := grab.NewRequest(savePath, downloadURL)
 
 	// start download
-	if progress {
+	if config.Verbose {
 		fmt.Printf("Downloading %v...\n", req.URL())
 	}
 	resp := client.Do(req)
-	if progress {
+	if config.Verbose {
 		fmt.Printf("  %v\n", resp.HTTPResponse.Status)
 	}
 
@@ -30,7 +31,7 @@ Loop:
 	for {
 		select {
 		case <-t.C:
-			if progress {
+			if config.Verbose {
 				fmt.Printf("  transferred %v / %v bytes (%.2f%%)\n",
 					resp.BytesComplete(),
 					resp.Size,
