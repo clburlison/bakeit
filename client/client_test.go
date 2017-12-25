@@ -6,9 +6,9 @@ import (
 )
 
 func TestClient(t *testing.T) {
-	b, err := ioutil.ReadFile("testdata/client_config.rb")
+	b, err := ioutil.ReadFile("testdata/client_config")
 	if err != nil {
-		t.Errorf("Test client_config.rb is missing!\n")
+		t.Errorf("'client_config' is missing!\n")
 	}
 	testConfig := string(b)
 	settings := Settings{":info",
