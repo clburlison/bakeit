@@ -12,7 +12,7 @@ BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 REVISION = $(shell git rev-parse HEAD)
 REVSHORT = $(shell git rev-parse --short HEAD)
 USER = $(shell whoami)
-PKGDIR_TMP = "/private/tmp/bakeit_pkgdir_tmp"
+PKGDIR_TMP = ${TMPDIR}golang
 WORKSPACE = ${GOPATH}/src/github.com/clburlison/bakeit
 
 ifneq ($(OS), Windows_NT)
@@ -41,13 +41,13 @@ else
 endif
 
 BUILD_VERSION = "\
-	-X github.com/clburlison/bakeit/vendor/github.com/bakeit/go4/version.appName=${APP_NAME} \
-	-X github.com/clburlison/bakeit/vendor/github.com/bakeit/go4/version.version=${VERSION} \
-	-X github.com/clburlison/bakeit/vendor/github.com/bakeit/go4/version.branch=${BRANCH} \
-	-X github.com/clburlison/bakeit/vendor/github.com/bakeit/go4/version.buildUser=${USER} \
-	-X github.com/clburlison/bakeit/vendor/github.com/bakeit/go4/version.buildDate=${NOW} \
-	-X github.com/clburlison/bakeit/vendor/github.com/bakeit/go4/version.revision=${REVISION} \
-	-X github.com/clburlison/bakeit/vendor/github.com/bakeit/go4/version.goVersion=${GOVERSION}"
+	-X github.com/clburlison/bakeit/client/version.appName=${APP_NAME} \
+	-X github.com/clburlison/bakeit/client/version.version=${VERSION} \
+	-X github.com/clburlison/bakeit/client/version.branch=${BRANCH} \
+	-X github.com/clburlison/bakeit/client/version.buildUser=${USER} \
+	-X github.com/clburlison/bakeit/client/version.buildDate=${NOW} \
+	-X github.com/clburlison/bakeit/client/version.revision=${REVISION} \
+	-X github.com/clburlison/bakeit/client/version.goVersion=${GOVERSION}"
 
 define HELP_TEXT
 
@@ -83,7 +83,7 @@ endif
 
 deps: check-deps
 	go get -u github.com/golang/dep/...
-	dep ensure -vendor-only
+	dep ensure -vendor-only -v
 
 test:
 	go test -cover -race -v $(shell go list ./... | grep -v /vendor/)
@@ -97,6 +97,9 @@ build-all: xp-bakeit
 clean:
 	rm -rf build/
 	rm -f *.zip
+	rm -rf ${PKGDIR_TMP}_darwin
+	rm -rf ${PKGDIR_TMP}_linux
+	rm -rf ${PKGDIR_TMP}_windows
 
 .pre-build:
 	mkdir -p build/darwin
@@ -109,15 +112,15 @@ APP_NAME = bakeit
 	$(eval APP_NAME = bakeit)
 
 bakeit: .pre-build .pre-bakeit
-	go build -i -o build/$(CURRENT_PLATFORM)/bakeit -ldflags ${BUILD_VERSION} ./cmd/bakeit
+	go build -i -o build/$(CURRENT_PLATFORM)/${APP_NAME} -ldflags ${BUILD_VERSION} ./cmd/bakeit
 
 install-bakeit: .pre-bakeit
 	go install -ldflags ${BUILD_VERSION} ./cmd/bakeit
 
 xp-bakeit: .pre-build .pre-bakeit
-	GOOS=darwin go build -i -o build/darwin/${OUTPUT} -ldflags ${BUILD_VERSION} ./cmd/bakeit
-	GOOS=linux go build -i -o build/linux/${OUTPUT} -pkgdir ${PKGDIR_TMP}_linux -ldflags ${BUILD_VERSION} ./cmd/bakeit
-	GOOS=windows GOARCH=386 go build -i -o build/windows/${OUTPUT}.exe -pkgdir ${PKGDIR_TMP}_windows -ldflags ${BUILD_VERSION} ./cmd/bakeit
+	GOOS=darwin go build -i -o build/darwin/${APP_NAME} -pkgdir ${PKGDIR_TMP}_darwin -ldflags ${BUILD_VERSION} ./cmd/bakeit
+	GOOS=linux go build -i -o build/linux/${APP_NAME} -pkgdir ${PKGDIR_TMP}_linux -ldflags ${BUILD_VERSION} ./cmd/bakeit
+	GOOS=windows GOARCH=386 go build -i -o build/windows/${APP_NAME}.exe -pkgdir ${PKGDIR_TMP}_windows -ldflags ${BUILD_VERSION} ./cmd/bakeit
 
 release-zip: xp-bakeit
 	zip -r bakeit_${VERSION}.zip build/
