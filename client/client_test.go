@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestConfig(t *testing.T) {
+func TestClient(t *testing.T) {
 	b, err := ioutil.ReadFile("testdata/client_config.rb")
 	if err != nil {
 		t.Errorf("Test client_config.rb is missing!\n")
