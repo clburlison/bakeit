@@ -10,7 +10,10 @@
 [[projects]]
   branch = "dmgutils"
   name = "github.com/groob/mackit"
-  packages = ["dmgutils"]
+  packages = [
+    "dmgutils",
+    "install/pkg"
+  ]
   revision = "356c466aafcd6c42f329fa73bc4f572a4f2fcfd8"
   source = "github.com/clburlison/mackit"
 
@@ -19,6 +22,24 @@
   name = "github.com/groob/plist"
   packages = ["."]
   revision = "2805b357fb2349d3a53ad2d5a5d00d191d9a37c9"
+
+[[projects]]
+  name = "github.com/inconshreveable/mousetrap"
+  packages = ["."]
+  revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
+  version = "v1.0"
+
+[[projects]]
+  name = "github.com/spf13/cobra"
+  packages = ["."]
+  revision = "7b2c5ac9fc04fc5efafb60700713d4fa609b777b"
+  version = "v0.0.1"
+
+[[projects]]
+  name = "github.com/spf13/pflag"
+  packages = ["."]
+  revision = "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
+  version = "v1.0.0"
 
 [[projects]]
   name = "gopkg.in/h2non/filetype.v1"
@@ -33,6 +54,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a68927c8ac244221c565d8b65eee33b261dad9ddaa13ffb7646483720ce6172e"
+  inputs-digest = "704576c7e730156397d25bdb11ef8d74afbc5c34a6702410cebfe4a75e387c71"
   solver-name = "gps-cdcl"
   solver-version = 1
