@@ -1,9 +1,6 @@
 package config
 
 var (
-	// Verbose - set standard output verbosity
-	Verbose bool
-
 	// ChefClientURL map - Accepts a full URL to a chef-client. Can be blank to download from chef.io.
 	ChefClientURL = map[string]string{
 		"darwin": "",
@@ -18,4 +15,11 @@ var (
 
 	// ChefClientPreRelease string - Download pre-release chef client versions. String of false or true.
 	ChefClientPreRelease = "false"
+
+	// Verbose bool - set standard output verbosity
+	Verbose bool
+
+	// UserShortName string - When set bakeit will check for the user and bail if they are the current user.
+	// Useful if you use chef to manage a specific service account.
+	UserShortName = "admin"
 )

@@ -1,12 +1,16 @@
 package client
 
 import (
+	"bytes"
 	"fmt"
 	"os"
+	"os/exec"
 	"os/user"
 	"path/filepath"
 	"regexp"
+	"strings"
 
+	"github.com/clburlison/bakeit/client/config"
 	"github.com/groob/mackit/dmgutils"
 	"github.com/groob/mackit/install/pkg"
 )
@@ -19,6 +23,15 @@ func Setup() {
 		fmt.Println("Please run as root!")
 		os.Exit(1)
 	}
+
+	// If current user is 'config.UserShortName', abort
+	configUser := config.UserShortName
+	if configUser == consoleUser() {
+		fmt.Fprintf(os.Stderr, "Create a new account not named "+
+			"'%s'!\nChef will create a '%s' account for you.", configUser, configUser)
+		os.Exit(1)
+	}
+
 	file, err := Download(GetChefURL(), ".")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error downloading file: %s\n", err)
@@ -93,4 +106,17 @@ func checkExt(ext string, path string) []string {
 		return nil
 	})
 	return files
+}
+
+func consoleUser() string {
+	cmd := exec.Command("/usr/bin/stat", "-f%Su", "/dev/console")
+	var out bytes.Buffer
+	var stderr bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &stderr
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("consoleUser:", err)
+	}
+	return strings.TrimSpace(out.String())
 }
