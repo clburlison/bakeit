@@ -3,9 +3,7 @@ package config
 var (
 	// ChefClientURL map - Accepts a full URL to a chef-client. Can be blank to download from chef.io.
 	ChefClientURL = map[string]string{
-		"darwin": "",
-		// "darwin": "https://packages.chef.io/files/stable/" +
-		// 	"chef/13.6.4/mac_os_x/10.13/chef-13.6.4-1.dmg",
+		"darwin":  "",
 		"windows": "",
 		"linux":   "",
 	}
