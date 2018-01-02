@@ -8,6 +8,7 @@ import (
 	"os/user"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/clburlison/bakeit/client/config"
@@ -18,6 +19,21 @@ import (
 // Setup is the main platform specific function that is called
 // to setup a chef node.
 func Setup() {
+	// Only on supported OS version
+	osVer := GetMacInfo().ProductVersion
+	majorVer := strings.Split(osVer, ".")[1]
+	i, err := strconv.Atoi(majorVer)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error obtaining OS Version: %s\n", err)
+		os.Exit(1)
+	}
+	if i < 10 {
+		fmt.Fprintf(os.Stderr, "'%s' is no longer supported. This machine "+
+			"must be upgraded to install Chef.\n", osVer)
+		os.Exit(1)
+	}
+
+	// Run with elevated permissions
 	user, _ := user.Current()
 	if user.Uid != "0" {
 		fmt.Println("Please run as root!")
@@ -32,6 +48,19 @@ func Setup() {
 		os.Exit(1)
 	}
 
+	// Remove old chef files before running
+	if config.Force {
+		clientCert := "/etc/chef/client.pem"
+		if _, err := os.Stat(clientCert); os.IsExist(err) {
+			os.Remove(clientCert)
+		}
+		ohaiPlugins := "/etc/chef/ohai_plugins/"
+		if _, err := os.Stat(ohaiPlugins); os.IsExist(err) {
+			os.Remove(ohaiPlugins)
+		}
+	}
+
+	// Download chef client
 	file, err := Download(GetChefURL(), ".")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error downloading file: %s\n", err)

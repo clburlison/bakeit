@@ -16,7 +16,7 @@ func getPlatformInfo() (ver string, plat string) {
 	var osVers string
 	switch os := runtime.GOOS; os {
 	case "darwin":
-		osVers = chop(_getMacInfo().ProductVersion, 2)
+		osVers = chop(GetMacInfo().ProductVersion, 2)
 		return osVers, "mac_os_x"
 	case "linux":
 		fmt.Println("Linux")
@@ -33,7 +33,7 @@ func getPlatformInfo() (ver string, plat string) {
 
 // getChefWebURL will build a url to download directly from
 // chef.io for the specific platform.
-func _getChefWebURL() string {
+func getChefWebURL() string {
 	ver, plat := getPlatformInfo()
 	arch := runtime.GOARCH
 	if arch == "386" {
@@ -53,7 +53,7 @@ func GetChefURL() string {
 	if configURL != "" {
 		chefURL = configURL
 	} else {
-		chefURL = _getChefWebURL()
+		chefURL = getChefWebURL()
 	}
 	return chefURL
 }
@@ -64,7 +64,7 @@ type macInfoObject struct {
 	BuildVersion   string
 }
 
-func _getMacInfo() *macInfoObject {
+func GetMacInfo() *macInfoObject {
 	cmd := exec.Command("/usr/bin/sw_vers")
 	var out bytes.Buffer
 	var stderr bytes.Buffer
@@ -72,7 +72,7 @@ func _getMacInfo() *macInfoObject {
 	cmd.Stderr = &stderr
 	err := cmd.Run()
 	if err != nil {
-		fmt.Println("_getMacInfo:", err)
+		fmt.Println("GetMacInfo:", err)
 	}
 	data := strings.Split(out.String(), "\n")
 	productName := strings.TrimSpace(strings.Split(data[0], ":")[1])

@@ -16,6 +16,9 @@ var (
 	// ChefClientPreRelease string - Download pre-release chef client versions. String of false or true.
 	ChefClientPreRelease = "false"
 
+	// Force bool - Remove old chef files before running
+	Force = false
+
 	// Verbose bool - set standard output verbosity
 	Verbose bool
 

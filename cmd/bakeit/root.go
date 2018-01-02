@@ -24,6 +24,7 @@ Complete documentation is available at https://github.com/clburlison/bakeit/.`,
 
 func init() {
 	RootCmd.PersistentFlags().BoolVarP(&config.Verbose, "verbose", "v", true, "verbose output")
+	RootCmd.Flags().BoolVarP(&config.Force, "force", "f", false, "force remove old chef files before running")
 	RootCmd.Flags().BoolP("clitools", "", false, "install Xcode cli tools (not yet implemented)")
 }
 
