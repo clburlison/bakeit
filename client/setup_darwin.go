@@ -25,8 +25,10 @@ func Setup() {
 		os.Exit(1)
 	}
 
-	pkgPath := ""
-	dmgMountPoint := ""
+	var (
+		pkgPath       string
+		dmgMountPoint string
+	)
 
 	// Check for file type
 	ext, mime := Match(file)
