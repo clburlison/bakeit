@@ -1,0 +1,24 @@
++-o Root  <class IORegistryEntry, id 0x100000100, retain 16>
++-o MacBookPro13,3  <class IOPlatformExpertDevice, id 0x100000117, registered, matched, active, busy 0 (28161 ms), retain 41>
+    {
+      "IOPlatformSystemSleepPolicy" = <534c505402001200841e120004000000001400000004000006000000000000000f25000000000000841e120004000000001800000008000005000000000000000f25000000000000841e1$
+      "compatible" = <"MacBookPro13,3">
+      "version" = <"1.0">
+      "board-id" = <"Mac-A5C67F76ED83108C">
+      "IOInterruptSpecifiers" = (<0900000005000000>)
+      "platform-feature" = <1a00000000000000>
+      "serial-number" = <4754464d000000000000000000433032544431534e4754464d000000000000000000000000000000000000>
+      "IOInterruptControllers" = ("io-apic-0")
+      "IOPolledInterface" = "SMCPolledInterface is not serializable"
+      "target-type" = <"Mac">
+      "clock-frequency" = <00e1f505>
+      "manufacturer" = <"Apple Inc.">
+      "IOPlatformUUID" = "F36CA9A2-6378-5A58-A9E0-195BCB84B6CB"
+      "IOPlatformSerialNumber" = "C00BB1CDDEEF"
+      "system-type" = <02>
+      "product-name" = <"MacBookPro13,3">
+      "model" = <"MacBookPro13,3">
+      "name" = <"/">
+      "IOBusyInterest" = "IOCommand is not serializable"
+    }
+    
