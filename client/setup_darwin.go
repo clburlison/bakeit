@@ -33,6 +33,10 @@ func Setup() {
 		os.Exit(1)
 	}
 
+	// Get the current node serial number
+	serial := GetSerialNumber()
+	fmt.Printf("Current serial number is: %s\n", serial)
+
 	// Run with elevated permissions
 	user, _ := user.Current()
 	if user.Uid != "0" {
