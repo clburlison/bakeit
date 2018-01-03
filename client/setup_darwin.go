@@ -3,6 +3,7 @@ package client
 import (
 	"bytes"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"os/user"
@@ -38,6 +39,7 @@ func Setup() {
 		os.Exit(1)
 	}
 
+	// TODO: Start: Move this to the client.go file as a separate function
 	// Get the current node serial number
 	serial := GetSerialNumber()
 	fmt.Printf("Current serial number is: %s\n", serial)
@@ -63,7 +65,7 @@ func Setup() {
 		fmt.Fprintf(os.Stderr, "Unable to create client config:\n%s\n", err)
 		os.Exit(1)
 	}
-	fmt.Printf(clientConfig)
+	// TODO: End
 
 	// Run with elevated permissions
 	user, _ := user.Current()
@@ -89,6 +91,34 @@ func Setup() {
 		ohaiPlugins := "/etc/chef/ohai_plugins/"
 		if _, err := os.Stat(ohaiPlugins); os.IsExist(err) {
 			os.Remove(ohaiPlugins)
+		}
+	}
+
+	// Write chef config files
+	if _, err := os.Stat("/etc/chef"); os.IsNotExist(err) {
+		os.MkdirAll("/etc/chef", os.ModePerm)
+	}
+	err = ioutil.WriteFile("/etc/chef/client.rb", []byte(clientConfig), 0644)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to write client config:%s\n", err)
+	}
+	json := config.ChefClientRunListJSON["darwin"]
+	err = ioutil.WriteFile("/etc/chef/run-list.json", []byte(json), 0644)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error formating JSON run list:%s\n", err)
+	}
+	orgCrt := config.OrgCert
+	if strings.Contains(orgCrt, "goes here") == false {
+		err = ioutil.WriteFile("/etc/chef/org.crt", []byte(orgCrt), 0644)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Unable to write client config:%s\n", err)
+		}
+	}
+	valPEM := config.ValidationPEM
+	if strings.Contains(valPEM, "goes here") == false {
+		err = ioutil.WriteFile("/etc/chef/validation.pem", []byte(valPEM), 0644)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Unable to write client config:%s\n", err)
 		}
 	}
 
@@ -155,6 +185,8 @@ func Setup() {
 	}
 }
 
+// checkExt - Check a directory for files with a specific extension;
+// return a listing of files found.
 func checkExt(ext string, path string) []string {
 	var files []string
 	filepath.Walk(path, func(path string, f os.FileInfo, _ error) error {
