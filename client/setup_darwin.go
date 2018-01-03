@@ -42,6 +42,29 @@ func Setup() {
 	serial := GetSerialNumber()
 	fmt.Printf("Current serial number is: %s\n", serial)
 
+	// Build client.rb from config and template
+	settings := Settings{
+		config.ChefClientLogLevel,
+		config.ChefClientLogLocation,
+		config.ChefClientValidationClientName,
+		config.ChefClientValidationKey,
+		config.ChefClientChefServerURL,
+		config.ChefClientJSONAttribs,
+		config.ChefClientSSLVerifyMode,
+		config.ChefClientLocalKeyGeneration,
+		config.ChefClientRestTimeout,
+		config.ChefClientHTTPRetryCount,
+		config.ChefClientNoLazyLoad,
+		config.ChefClientOhaiDirectory["darwin"],
+		config.ChefClientOhaiDisabledPlugins["darwin"],
+		serial}
+	clientConfig, err := Config(settings)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to create client config:\n%s\n", err)
+		os.Exit(1)
+	}
+	fmt.Printf(clientConfig)
+
 	// Run with elevated permissions
 	user, _ := user.Current()
 	if user.Uid != "0" {

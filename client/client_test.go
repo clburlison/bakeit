@@ -22,6 +22,8 @@ func TestClient(t *testing.T) {
 		30,
 		3,
 		false,
+		"/etc/chef/ohai_plugins",
+		[]string{":Passwd"},
 		"AAXXXYYYZZZ"}
 	config, err := Config(settings)
 	// fmt.Printf(config)

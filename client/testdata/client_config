@@ -11,17 +11,16 @@ rest_timeout           30
 http_retry_count       3
 
 
-whitelist = []
-automatic_attribute_whitelist whitelist
+automatic_attribute_whitelist []
 default_attribute_whitelist []
 normal_attribute_whitelist []
 override_attribute_whitelist []
 
+ohai.directory = '/etc/chef/ohai_plugins'
+
 ohai.disabled_plugins = [
-    :Passwd
+:Passwd
 ]
-ohai.plugin_path += [
-  '/etc/chef/ohai_plugins'
-]
+
 
 node_name "AAXXXYYYZZZ"

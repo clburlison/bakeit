@@ -18,11 +18,14 @@ type Settings struct {
 	RestTimeout          int
 	HTTPRetryCount       int
 	NoLazyLoad           bool
+	OhaiDirectory        string
+	OhaiDisabledPlugins  []string
 	NodeName             string
 }
 
 // https://golang.org/pkg/text/template/
 // TODO: If an empty value is passed a newline is created
+// TODO: OhaiDisabledPlugins - we should add a comma + new line if len > 1
 var client = `# https://docs.chef.io/config_rb_client.html
 {{if .LogLevel}}log_level              {{.LogLevel}}{{end}}
 {{if .LogLocation}}log_location           {{.LogLocation}}{{end}}
@@ -36,18 +39,20 @@ var client = `# https://docs.chef.io/config_rb_client.html
 {{if .HTTPRetryCount}}http_retry_count       {{.HTTPRetryCount}}{{end}}
 {{if .NoLazyLoad}}no_lazy_load           {{.NoLazyLoad}}{{end}}
 
-whitelist = []
-automatic_attribute_whitelist whitelist
+automatic_attribute_whitelist []
 default_attribute_whitelist []
 normal_attribute_whitelist []
 override_attribute_whitelist []
 
+{{if .OhaiDirectory}}ohai.directory = '{{.OhaiDirectory}}'{{end}}
+{{- if .OhaiDisabledPlugins}}
+{{ $disabled_plugins := .OhaiDisabledPlugins }}
 ohai.disabled_plugins = [
-    :Passwd
+{{ range $disabled_plugins }}
+     {{- . -}}
+{{ end }}
 ]
-ohai.plugin_path += [
-  '/etc/chef/ohai_plugins'
-]
+{{end}}
 
 {{if .NodeName}}node_name "{{.NodeName}}"{{- end}}
 `
