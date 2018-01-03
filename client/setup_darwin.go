@@ -19,8 +19,13 @@ import (
 // Setup is the main platform specific function that is called
 // to setup a chef node.
 func Setup() {
-	// Only on supported OS version
-	osVer := GetMacInfo().ProductVersion
+	// Only run on supported OS versions
+	info, err := GetMacInfo()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error obtaining OS Version: %s\n", err)
+		os.Exit(1)
+	}
+	osVer := info.ProductVersion
 	majorVer := strings.Split(osVer, ".")[1]
 	i, err := strconv.Atoi(majorVer)
 	if err != nil {
