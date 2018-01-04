@@ -21,7 +21,7 @@ func RunChef() (status bool, err error) {
 	retries := 3
 	successes := 0
 	for {
-		fmt.Printf("Running Chef %d/%d\n", successes+1, retries)
+		fmt.Printf("Running Chef...\n")
 		success, _ := callChefClient()
 		if success {
 			fmt.Printf("Chef ran successfully...\n")
