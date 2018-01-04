@@ -112,7 +112,7 @@ APP_NAME = bakeit
 	$(eval APP_NAME = bakeit)
 
 bakeit: .pre-build .pre-bakeit
-	go build -i -o build/$(CURRENT_PLATFORM)/${APP_NAME} -ldflags ${BUILD_VERSION} ./cmd/bakeit
+	go build -i -o build/$(CURRENT_PLATFORM)/${OUTPUT} -ldflags ${BUILD_VERSION} ./cmd/bakeit
 
 install-bakeit: .pre-bakeit
 	go install -ldflags ${BUILD_VERSION} ./cmd/bakeit
