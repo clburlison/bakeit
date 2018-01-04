@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/clburlison/bakeit/client"
-	"github.com/clburlison/bakeit/client/config"
+	"github.com/clburlison/bakeit/src"
+	"github.com/clburlison/bakeit/src/config"
 	"github.com/spf13/cobra"
 )
 

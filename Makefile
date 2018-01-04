@@ -41,13 +41,13 @@ else
 endif
 
 BUILD_VERSION = "\
-	-X github.com/clburlison/bakeit/client/version.appName=${APP_NAME} \
-	-X github.com/clburlison/bakeit/client/version.version=${VERSION} \
-	-X github.com/clburlison/bakeit/client/version.branch=${BRANCH} \
-	-X github.com/clburlison/bakeit/client/version.buildUser=${USER} \
-	-X github.com/clburlison/bakeit/client/version.buildDate=${NOW} \
-	-X github.com/clburlison/bakeit/client/version.revision=${REVISION} \
-	-X github.com/clburlison/bakeit/client/version.goVersion=${GOVERSION}"
+	-X github.com/clburlison/bakeit/src/version.appName=${APP_NAME} \
+	-X github.com/clburlison/bakeit/src/version.version=${VERSION} \
+	-X github.com/clburlison/bakeit/src/version.branch=${BRANCH} \
+	-X github.com/clburlison/bakeit/src/version.buildUser=${USER} \
+	-X github.com/clburlison/bakeit/src/version.buildDate=${NOW} \
+	-X github.com/clburlison/bakeit/src/version.revision=${REVISION} \
+	-X github.com/clburlison/bakeit/src/version.goVersion=${GOVERSION}"
 
 define HELP_TEXT
 

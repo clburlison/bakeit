@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/clburlison/bakeit/client/config"
+	"github.com/clburlison/bakeit/src/config"
 )
 
 var chefBaseURL = "https://www.chef.io/chef/download/"

@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/cavaliercoder/grab"
-	"github.com/clburlison/bakeit/client/config"
+	"github.com/clburlison/bakeit/src/config"
 )
 
 // Download a web resource; return file location and errors

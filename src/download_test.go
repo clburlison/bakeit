@@ -9,7 +9,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/clburlison/bakeit/client/config"
+	"github.com/clburlison/bakeit/src/config"
 )
 
 type TestDL struct {

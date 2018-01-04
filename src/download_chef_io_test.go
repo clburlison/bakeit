@@ -4,7 +4,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/clburlison/bakeit/client/config"
+	"github.com/clburlison/bakeit/src/config"
 )
 
 var darwinTestDynamic = "https://www.chef.io/chef/download/" +

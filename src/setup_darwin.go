@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/clburlison/bakeit/client/config"
+	"github.com/clburlison/bakeit/src/config"
 )
 
 // Setup is the main platform specific function that is called

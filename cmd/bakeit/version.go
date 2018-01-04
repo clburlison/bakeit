@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/clburlison/bakeit/client/version"
+	"github.com/clburlison/bakeit/src/version"
 	"github.com/spf13/cobra"
 )
 
