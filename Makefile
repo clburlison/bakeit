@@ -62,6 +62,7 @@ define HELP_TEXT
 
 	make test         - Run the Go tests
 	make lint         - Run the Go linters
+	make test-ci      - RUn the Go tests with circleci locally (Linux based)
 
 endef
 
@@ -87,6 +88,9 @@ deps: check-deps
 
 test:
 	go test -cover -race -v $(shell go list ./... | grep -v /vendor/)
+
+test-ci:
+	circleci build --job build-go1.9
 
 lint:
 	go vet ./...
