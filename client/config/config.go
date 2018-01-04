@@ -9,7 +9,7 @@ var (
 	}
 
 	// ChefClientVersion string - Accepts "latest" or a specific version IE - 13.6.4
-	ChefClientVersion = "13.6.0"
+	ChefClientVersion = "latest"
 
 	// ChefClientPreRelease string - Download pre-release chef client versions. String of false or true.
 	ChefClientPreRelease = "false"
@@ -67,6 +67,6 @@ validation pem goes here
 // OrgCert - The organization certificate. Required if using a self signed cert from your chef server.
 // If left unmodified no cert is written.
 var OrgCert = `-----BEGIN RSA PRIVATE KEY-----
-validation pem goes here
+org cert goes here
 -----END RSA PRIVATE KEY-----
 `
