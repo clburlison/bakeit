@@ -6,13 +6,6 @@ import (
 	"strings"
 )
 
-// MacInfoObject - Hold mac specific data from sw_vers
-type MacInfoObject struct {
-	ProductName    string
-	ProductVersion string
-	BuildVersion   string
-}
-
 // GetMacInfo - return facts about current node
 func GetMacInfo() (*MacInfoObject, error) {
 	cmd := exec.Command("/usr/bin/sw_vers")
