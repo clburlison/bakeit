@@ -1,7 +1,7 @@
 package client
 
-// MacInfoObject - Hold mac specific data from sw_vers
-type MacInfoObject struct {
+// NodeInfoObject - Hold node specific data
+type NodeInfoObject struct {
 	ProductName    string
 	ProductVersion string
 	BuildVersion   string

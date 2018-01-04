@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-// GetMacInfo - return facts about current node
-func GetMacInfo() (*MacInfoObject, error) {
+// GetNodeInfo - return facts about current node
+func GetNodeInfo() (*NodeInfoObject, error) {
 	cmd := exec.Command("/usr/bin/sw_vers")
 	var out bytes.Buffer
 	var stderr bytes.Buffer
@@ -21,6 +21,6 @@ func GetMacInfo() (*MacInfoObject, error) {
 	productName := strings.TrimSpace(strings.Split(data[0], ":")[1])
 	productVersion := strings.TrimSpace(strings.Split(data[1], ":")[1])
 	buildVersion := strings.TrimSpace(strings.Split(data[2], ":")[1])
-	mio := &MacInfoObject{productName, productVersion, buildVersion}
+	mio := &NodeInfoObject{productName, productVersion, buildVersion}
 	return mio, nil
 }

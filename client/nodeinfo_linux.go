@@ -1,6 +1,6 @@
 package client
 
-// GetMacInfo empty func to allow CI to complete
-func GetMacInfo() (*MacInfoObject, error) {
+// GetNodeInfo empty func to allow CI to complete
+func GetNodeInfo() (*NodeInfoObject, error) {
 	return nil, nil
 }

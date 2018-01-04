@@ -21,7 +21,7 @@ import (
 // to setup a chef node.
 func Setup() {
 	// Only run on supported OS versions
-	info, err := GetMacInfo()
+	info, err := GetNodeInfo()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error obtaining OS Version: %s\n", err)
 		os.Exit(1)

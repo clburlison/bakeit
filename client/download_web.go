@@ -14,7 +14,7 @@ func getPlatformInfo() (ver string, plat string) {
 	var osVers string
 	switch os := runtime.GOOS; os {
 	case "darwin":
-		info, err := GetMacInfo()
+		info, err := GetNodeInfo()
 		if err != nil {
 			fmt.Printf("Unable to obtain macOS version info: %s\n", err)
 		}
