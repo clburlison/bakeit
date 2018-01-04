@@ -122,6 +122,8 @@ func Setup() {
 		}
 	}
 
+	// TODO: Check to see if chef is installed
+
 	// Download chef client
 	file, err := Download(GetChefURL(), ".")
 	if err != nil {
@@ -182,6 +184,20 @@ func Setup() {
 			fmt.Printf("%s\n", err)
 		}
 		fmt.Printf("Unmount result: %t\n", out)
+	}
+
+	// TODO: This is very opinionated. Should it be removed or
+	// controlled with a config option? Clayton
+	// Set the firstboot tag to ensure the firstboot runlist is used.
+	err = ioutil.WriteFile("/etc/chef/firstboot", []byte(""), 0644)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to create firstboot file:%s\n", err)
+	}
+
+	_, err = RunChef()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Chef failed to complete: %s\n", err)
+		os.Exit(1)
 	}
 }
 
