@@ -23,6 +23,10 @@ Complete documentation is available at https://github.com/clburlison/bakeit/.`,
 }
 
 func init() {
+	// MousetrapHelpText is set to an empty string to disable
+	// cobra from showing a splash screen on windows when
+	// launched via double click
+	cobra.MousetrapHelpText = ""
 	RootCmd.PersistentFlags().BoolVarP(&config.Verbose, "verbose", "v", true, "verbose output")
 	RootCmd.Flags().BoolVarP(&config.Force, "force", "f", false, "force remove old chef files before running")
 	RootCmd.Flags().BoolP("clitools", "", false, "install Xcode cli tools (not yet implemented)")

@@ -59,6 +59,7 @@ define HELP_TEXT
 	make build        - Build the code
 	make build-all    - Build the code for all platforms
 	make package      - Build macOS package (Not yet implemented)
+	make generate     - Build updated resource.syso for windows binary
 
 	make test         - Run the Go tests
 	make lint         - Run the Go linters
@@ -84,6 +85,7 @@ endif
 
 deps: check-deps
 	go get -u github.com/golang/dep/...
+	go get -u github.com/josephspurrier/goversioninfo/cmd/goversioninfo
 	dep ensure -vendor-only -v
 
 test:
@@ -120,6 +122,9 @@ bakeit: .pre-build .pre-bakeit
 
 install-bakeit: .pre-bakeit
 	go install -ldflags ${BUILD_VERSION} ./cmd/bakeit
+
+generate:
+	go generate cmd/bakeit/main.go
 
 xp-bakeit: .pre-build .pre-bakeit
 	GOOS=darwin go build -i -o build/darwin/${APP_NAME} -pkgdir ${PKGDIR_TMP}_darwin -ldflags ${BUILD_VERSION} ./cmd/bakeit
