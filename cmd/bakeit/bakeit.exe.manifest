@@ -6,7 +6,7 @@
     name="bakeit.exe"
     type="win32"
 />
-<description>My App</description>
+<description>bakeit</description>
 <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
     <security>
         <requestedPrivileges>
