@@ -14,6 +14,7 @@ REVSHORT = $(shell git rev-parse --short HEAD)
 USER = $(shell whoami)
 PKGDIR_TMP = ${TMPDIR}golang
 WORKSPACE = ${GOPATH}/src/github.com/clburlison/bakeit
+GOPATHS_NOVENDOR := $(shell go list ./... | grep -v /vendor/)
 
 ifneq ($(OS), Windows_NT)
 	CURRENT_PLATFORM = linux
@@ -63,7 +64,7 @@ define HELP_TEXT
 
 	make test         - Run the Go tests
 	make lint         - Run the Go linters
-	make test-ci      - RUn the Go tests with circleci locally (Linux based)
+	make test-ci      - Run the Go tests with circleci locally (Linux based)
 
 endef
 
@@ -85,17 +86,24 @@ endif
 
 deps: check-deps
 	go get -u github.com/golang/dep/...
+	go get -u github.com/golang/lint/golint
 	go get -u github.com/josephspurrier/goversioninfo/cmd/goversioninfo
 	dep ensure -vendor-only -v
 
 test:
-	go test -cover -race -v $(shell go list ./... | grep -v /vendor/)
+	go test -cover -race -v ${GOPATHS_NOVENDOR}
 
 test-ci:
 	circleci build --job build-go1.9
 
 lint:
-	go vet ./...
+	@if gofmt -l . | egrep -v ^vendor/ | grep .go; then \
+	  echo "^- Repo contains improperly formatted go files; run gofmt -w *.go" && exit 1; \
+	  else echo "All .go files formatted correctly"; fi
+	@go vet ${GOPATHS_NOVENDOR}
+	@for pkg in ${GOPATHS_NOVENDOR}; do \
+		golint $$pkg; \
+	done
 
 build: bakeit
 build-all: xp-bakeit
