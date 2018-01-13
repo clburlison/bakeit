@@ -42,6 +42,7 @@ SOFTWARE.
 		appName   = "unknown"
 
 */
+
 package version
 
 import (

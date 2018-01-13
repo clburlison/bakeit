@@ -6,6 +6,7 @@ import (
 	"text/template"
 )
 
+// Settings contains the client.rb settings
 type Settings struct {
 	LogLevel             string
 	LogLocation          string

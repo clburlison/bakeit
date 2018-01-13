@@ -13,6 +13,7 @@ func CheckChefInstall(clientPath string) bool {
 	if _, err := os.Stat(clientPath); os.IsNotExist(err) {
 		return false
 	}
+	// We aren't using the version at this time
 	status, _ := chefVersion(clientPath)
 	if status {
 		return true
