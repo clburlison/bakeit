@@ -4,16 +4,19 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
+	"runtime"
+
+	"github.com/clburlison/bakeit/src/config"
 )
 
-var (
-	logDir          = "/Library/Chef/Logs"
-	firstRunLogFile = "/Library/Chef/Logs/first_chef_run.log"
-)
+var logFile = config.FirstRunLogFile[runtime.GOOS]
 
 // RunChef will call chef-client in a loop to setup a node
 func RunChef() (status bool, err error) {
 	// Set up the Chef Log directory
+	logDir := config.FirstRunLogFile[runtime.GOOS]
+	logDir = filepath.Dir(logDir)
 	if _, err := os.Stat(logDir); os.IsNotExist(err) {
 		os.MkdirAll(logDir, os.ModePerm)
 	}
@@ -39,7 +42,7 @@ func RunChef() (status bool, err error) {
 	}
 	if successes < 2 {
 		err := fmt.Errorf("Chef failed to run, please send "+
-			"logfile at %s", firstRunLogFile)
+			"logfile at %s", logFile)
 		return false, err
 	}
 
@@ -48,13 +51,13 @@ func RunChef() (status bool, err error) {
 }
 
 func callChefClient() (bool, error) {
-	cmd := exec.Command("/usr/local/bin/chef-client")
+	cmd := exec.Command(config.ChefClientExecPath[runtime.GOOS])
 	// Create log file if it doesn't exist
-	if _, err := os.Stat(firstRunLogFile); os.IsNotExist(err) {
-		_, err = os.Create(firstRunLogFile)
+	if _, err := os.Stat(logFile); os.IsNotExist(err) {
+		_, err = os.Create(logFile)
 	}
 	// Open log file in append mode
-	outfile, err := os.OpenFile(firstRunLogFile, os.O_APPEND|os.O_WRONLY, 0644)
+	outfile, err := os.OpenFile(logFile, os.O_APPEND|os.O_WRONLY, 0644)
 	defer outfile.Close()
 	if err != nil {
 		return false, err
