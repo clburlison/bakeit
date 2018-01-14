@@ -1,4 +1,4 @@
-package client
+package download
 
 import (
 	"crypto/sha256"

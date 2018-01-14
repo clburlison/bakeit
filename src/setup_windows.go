@@ -1,29 +1,32 @@
-package client
+package setup
 
 import (
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	"github.com/clburlison/bakeit/src/chef"
+	"github.com/clburlison/bakeit/src/node"
 )
 
 func Setup() {
 	// Get the current node serial number
 	// TODO: Limit this to window 7+. Will need to verify server lineup as well?
-	clientConfig, err := GetConfig()
+	clientConfig, err := chef.GetConfig()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to create client config:\n%s\n", err)
 		os.Exit(1)
 	}
 
 	// Write chef files
-	err = ChefFiles(clientConfig)
+	err = node.ChefFiles(clientConfig)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error writing chef files: %s\n", err)
 		os.Exit(1)
 	}
 
 	// Install chef if required
-	_, err = InstallChef()
+	_, err = chef.InstallChef()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Bootstrap failed: %s\n", err)
 		os.Exit(1)
@@ -38,7 +41,7 @@ func Setup() {
 	}
 
 	// Run chef in a loop
-	_, err = RunChef()
+	_, err = chef.RunChef()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Chef failed to complete: %s\n", err)
 		os.Exit(1)

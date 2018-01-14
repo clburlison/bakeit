@@ -1,4 +1,4 @@
-package client
+package chef
 
 import (
 	"fmt"
@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"regexp"
 
+	"github.com/clburlison/bakeit/src/download"
+	"github.com/clburlison/bakeit/src/filetype"
 	"github.com/groob/mackit/dmgutils"
 	"github.com/groob/mackit/install/pkg"
 )
@@ -24,7 +26,7 @@ func InstallChef() (bool, error) {
 	// a temp file. The issue with this is we will then need to rename
 	// dmg files and pkg files to have the proper extensions.
 	// Apple's tools will not properly work on extensionless files.
-	file, err := Download(GetChefURL(), ".")
+	file, err := download.Download(download.GetChefURL(), ".")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error downloading file: %s\n", err)
 		return false, err
@@ -36,7 +38,7 @@ func InstallChef() (bool, error) {
 	)
 
 	// Check for file type
-	ext, mime := Match(file)
+	ext, mime := filetype.Match(file)
 	fmt.Printf("File type: %s. MIME: %s\n", ext, mime)
 
 	// Handle dmgs, pkgs, and unsupported files

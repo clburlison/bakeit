@@ -1,4 +1,4 @@
-package client
+package download
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/clburlison/bakeit/src/config"
+	"github.com/clburlison/bakeit/src/node"
 )
 
 var chefBaseURL = "https://www.chef.io/chef/download/"
@@ -14,11 +15,11 @@ func getPlatformInfo() (ver string, plat string) {
 	var osVers string
 	switch os := runtime.GOOS; os {
 	case "darwin":
-		info, err := GetNodeInfo()
+		info, err := node.GetNodeInfo()
 		if err != nil {
 			fmt.Printf("Unable to obtain macOS version info: %s\n", err)
 		}
-		osVers = Chop(info.ProductVersion, 2)
+		osVers = node.Chop(info.ProductVersion, 2)
 		return osVers, "mac_os_x"
 	case "linux":
 		fmt.Println("Linux")

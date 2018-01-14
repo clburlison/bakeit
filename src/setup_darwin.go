@@ -1,4 +1,4 @@
-package client
+package setup
 
 import (
 	"bytes"
@@ -10,14 +10,16 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/clburlison/bakeit/src/chef"
 	"github.com/clburlison/bakeit/src/config"
+	"github.com/clburlison/bakeit/src/node"
 )
 
 // Setup is the main platform specific function that is called
 // to setup a chef node.
 func Setup() {
 	// Only run on supported OS versions
-	info, err := GetNodeInfo()
+	info, err := node.GetNodeInfo()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error obtaining OS Version: %s\n", err)
 		os.Exit(1)
@@ -42,7 +44,7 @@ func Setup() {
 		os.Exit(1)
 	}
 
-	clientConfig, err := GetConfig()
+	clientConfig, err := chef.GetConfig()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to create client config:\n%s\n", err)
 		os.Exit(1)
@@ -57,14 +59,14 @@ func Setup() {
 	}
 
 	// Write chef files
-	err = ChefFiles(clientConfig)
+	err = node.ChefFiles(clientConfig)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error writing chef files: %s ", err)
 		os.Exit(1)
 	}
 
 	// Install chef if required
-	_, err = InstallChef()
+	_, err = chef.InstallChef()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Bootstrap failed: %s\n", err)
 		os.Exit(1)
@@ -79,7 +81,7 @@ func Setup() {
 	}
 
 	// Run chef in a loop
-	_, err = RunChef()
+	_, err = chef.RunChef()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Chef failed to complete: %s\n", err)
 		os.Exit(1)

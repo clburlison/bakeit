@@ -1,5 +1,5 @@
 // Package client provides resources for configuring a chef client
-package client
+package chef
 
 import (
 	"bytes"
@@ -8,6 +8,7 @@ import (
 	"text/template"
 
 	"github.com/clburlison/bakeit/src/config"
+	"github.com/clburlison/bakeit/src/serial"
 )
 
 // Settings contains the client.rb settings
@@ -79,12 +80,12 @@ func BuildConfig(settings Settings) (string, error) {
 
 // GetConfig returns a formated client.rb for the current node
 func GetConfig() (string, error) {
-	serial := GetSerialNumber()
-	serial, err := CleanNodeNameChars(serial)
+	s := serial.GetSerialNumber()
+	s, err := serial.CleanNodeNameChars(s)
 	if err != nil {
 		return "", err
 	}
-	fmt.Printf("Current serial number is: %s\n", serial)
+	fmt.Printf("Current serial number is: %s\n", s)
 
 	// Build client.rb from config and template
 	settings := Settings{
@@ -101,7 +102,7 @@ func GetConfig() (string, error) {
 		config.ChefClientNoLazyLoad,
 		config.ChefClientOhaiDirectory[runtime.GOOS],
 		config.ChefClientOhaiDisabledPlugins[runtime.GOOS],
-		serial}
+		s}
 
 	out, err := BuildConfig(settings)
 	if err != nil {

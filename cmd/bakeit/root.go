@@ -18,7 +18,7 @@ to install, configure, and run chef-client during bootstrap on nodes.
 
 Complete documentation is available at https://github.com/clburlison/bakeit/.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		client.Setup()
+		setup.Setup()
 	},
 }
 
