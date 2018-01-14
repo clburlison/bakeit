@@ -62,8 +62,23 @@ ohai.disabled_plugins = [
 {{if .NodeName}}node_name "{{.NodeName}}"{{- end}}
 `
 
-// Config is the formated client.rb file
-func Config() (string, error) {
+// BuildConfig takes settings and returns a client.rb
+func BuildConfig(settings Settings) (string, error) {
+	var out bytes.Buffer
+	tmpl, err := template.New("client.rb").Parse(client)
+	if err != nil {
+		return "", err
+	}
+	err = tmpl.Execute(&out, settings)
+	if err != nil {
+		return "", err
+	}
+
+	return out.String(), nil
+}
+
+// GetConfig returns a formated client.rb for the current node
+func GetConfig() (string, error) {
 	serial := GetSerialNumber()
 	serial, err := CleanNodeNameChars(serial)
 	if err != nil {
@@ -88,15 +103,9 @@ func Config() (string, error) {
 		config.ChefClientOhaiDisabledPlugins[runtime.GOOS],
 		serial}
 
-	var out bytes.Buffer
-	tmpl, err := template.New("client.rb").Parse(client)
+	out, err := BuildConfig(settings)
 	if err != nil {
 		return "", err
 	}
-	err = tmpl.Execute(&out, settings)
-	if err != nil {
-		return "", err
-	}
-
-	return out.String(), nil
+	return out, nil
 }
