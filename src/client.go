@@ -3,7 +3,11 @@ package client
 
 import (
 	"bytes"
+	"fmt"
+	"runtime"
 	"text/template"
+
+	"github.com/clburlison/bakeit/src/config"
 )
 
 // Settings contains the client.rb settings
@@ -59,15 +63,40 @@ ohai.disabled_plugins = [
 `
 
 // Config is the formated client.rb file
-func Config(set Settings) (config string, err error) {
+func Config() (string, error) {
+	serial := GetSerialNumber()
+	serial, err := CleanNodeNameChars(serial)
+	if err != nil {
+		return "", err
+	}
+	fmt.Printf("Current serial number is: %s\n", serial)
+
+	// Build client.rb from config and template
+	settings := Settings{
+		config.ChefClientLogLevel,
+		config.ChefClientLogLocation,
+		config.ChefClientValidationClientName,
+		config.ChefClientValidationKey[runtime.GOOS],
+		config.ChefClientChefServerURL,
+		config.ChefClientJSONAttribs[runtime.GOOS],
+		config.ChefClientSSLVerifyMode,
+		config.ChefClientLocalKeyGeneration,
+		config.ChefClientRestTimeout,
+		config.ChefClientHTTPRetryCount,
+		config.ChefClientNoLazyLoad,
+		config.ChefClientOhaiDirectory[runtime.GOOS],
+		config.ChefClientOhaiDisabledPlugins[runtime.GOOS],
+		serial}
+
 	var out bytes.Buffer
 	tmpl, err := template.New("client.rb").Parse(client)
 	if err != nil {
 		return "", err
 	}
-	err = tmpl.Execute(&out, set)
+	err = tmpl.Execute(&out, settings)
 	if err != nil {
 		return "", err
 	}
+
 	return out.String(), nil
 }

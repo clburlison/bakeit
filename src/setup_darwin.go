@@ -42,33 +42,11 @@ func Setup() {
 		os.Exit(1)
 	}
 
-	// TODO: Start: Move this to the client.go file as a separate function
-	// Get the current node serial number
-	serial := GetSerialNumber()
-	fmt.Printf("Current serial number is: %s\n", serial)
-
-	// Build client.rb from config and template
-	settings := Settings{
-		config.ChefClientLogLevel,
-		config.ChefClientLogLocation,
-		config.ChefClientValidationClientName,
-		config.ChefClientValidationKey,
-		config.ChefClientChefServerURL,
-		config.ChefClientJSONAttribs,
-		config.ChefClientSSLVerifyMode,
-		config.ChefClientLocalKeyGeneration,
-		config.ChefClientRestTimeout,
-		config.ChefClientHTTPRetryCount,
-		config.ChefClientNoLazyLoad,
-		config.ChefClientOhaiDirectory["darwin"],
-		config.ChefClientOhaiDisabledPlugins["darwin"],
-		serial}
-	clientConfig, err := Config(settings)
+	clientConfig, err := Config()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to create client config:\n%s\n", err)
 		os.Exit(1)
 	}
-	// TODO: End
 
 	// If current user is 'config.UserShortName', abort
 	configUser := config.UserShortName
@@ -78,44 +56,11 @@ func Setup() {
 		os.Exit(1)
 	}
 
-	// Remove old chef files before running
-	if config.Force {
-		clientCert := "/etc/chef/client.pem"
-		if _, err := os.Stat(clientCert); os.IsExist(err) {
-			os.Remove(clientCert)
-		}
-		ohaiPlugins := "/etc/chef/ohai_plugins/"
-		if _, err := os.Stat(ohaiPlugins); os.IsExist(err) {
-			os.Remove(ohaiPlugins)
-		}
-	}
-
-	// Write chef config files
-	if _, err := os.Stat("/etc/chef"); os.IsNotExist(err) {
-		os.MkdirAll("/etc/chef", os.ModePerm)
-	}
-	err = ioutil.WriteFile("/etc/chef/client.rb", []byte(clientConfig), 0644)
+	// Write chef files
+	err = ChefFiles(clientConfig)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to write client config:%s\n", err)
-	}
-	json := config.ChefClientRunListJSON["darwin"]
-	err = ioutil.WriteFile("/etc/chef/run-list.json", []byte(json), 0644)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error formating JSON run list:%s\n", err)
-	}
-	orgCrt := config.OrgCert
-	if strings.Contains(orgCrt, "goes here") == false {
-		err = ioutil.WriteFile("/etc/chef/org.crt", []byte(orgCrt), 0644)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Unable to write client config:%s\n", err)
-		}
-	}
-	valPEM := config.ValidationPEM
-	if strings.Contains(valPEM, "goes here") == false {
-		err = ioutil.WriteFile("/etc/chef/validation.pem", []byte(valPEM), 0644)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Unable to write client config:%s\n", err)
-		}
+		fmt.Fprintf(os.Stderr, "Error writing chef files: %s ", err)
+		os.Exit(1)
 	}
 
 	// Install chef if required
