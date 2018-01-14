@@ -9,7 +9,7 @@ import (
 func Setup() {
 	// Get the current node serial number
 	// TODO: Limit this to window 7+. Will need to verify server lineup as well?
-	clientConfig, err := Config()
+	clientConfig, err := GetConfig()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to create client config:\n%s\n", err)
 		os.Exit(1)

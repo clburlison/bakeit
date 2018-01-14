@@ -42,7 +42,7 @@ func Setup() {
 		os.Exit(1)
 	}
 
-	clientConfig, err := Config()
+	clientConfig, err := GetConfig()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to create client config:\n%s\n", err)
 		os.Exit(1)
