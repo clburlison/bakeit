@@ -1,10 +1,12 @@
-package client
+package chef
 
 import (
 	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
+
+	"github.com/clburlison/bakeit/src/download"
 )
 
 // https://docs.chef.io/install_bootstrap.html#powershell-user-data
@@ -22,7 +24,7 @@ func InstallChef() (bool, error) {
 	// TODO: Instead of using the local directory path we should use
 	// a temp file. Verify windows can install a msi without the
 	// extension
-	file, err := Download(GetChefURL(), ".")
+	file, err := download.Download(download.GetChefURL(), ".")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error downloading file: %s\n", err)
 	}
