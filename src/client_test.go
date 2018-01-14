@@ -25,7 +25,7 @@ func TestClient(t *testing.T) {
 		"/etc/chef/ohai_plugins",
 		[]string{":Passwd"},
 		"AAXXXYYYZZZ"}
-	config, err := Config(settings)
+	config, err := BuildConfig(settings)
 	// fmt.Printf(config)
 	if err != nil {
 		t.Errorf("Error getting a config: %s\n", err)
