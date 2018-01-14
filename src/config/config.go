@@ -17,7 +17,21 @@ var (
 	// ChefClientRunListJSON map - Chef Run list
 	ChefClientRunListJSON = map[string]string{
 		"darwin":  `{"run_list": ["role[cpe_base]"]}`,
+		"windows": `{"run_list": ["role[cpe_base]"]}`,
+		"linux":   "",
+	}
+
+	// ChefClientCertPath map - Client cert path
+	ChefClientCertPath = map[string]string{
+		"darwin":  "/etc/chef/client.pem",
 		"windows": "",
+		"linux":   "",
+	}
+
+	// ChefClientValidationKey map - Client cert path
+	ChefClientValidationKey = map[string]string{
+		"darwin":  "/etc/chef/validation.pem",
+		"windows": "C:\\chef\\validation.pem",
 		"linux":   "",
 	}
 
@@ -35,17 +49,36 @@ var (
 		"linux":   {},
 	}
 
+	// ChefClientJSONAttribs map - Path to json runlist file
+	ChefClientJSONAttribs = map[string]string{
+		"darwin":  "/etc/chef/run-list.json",
+		"windows": "C:\\chef\\first-boot.json",
+		"linux":   "",
+	}
+
+	// ChefClientExecPath map - Path to the chef-client executable
+	ChefClientExecPath = map[string]string{
+		"darwin":  "/usr/local/bin/chef-client",
+		"windows": "C:\\opscode\\chef\\bin\\chef-client",
+		"linux":   "",
+	}
+
 	ChefClientLogLevel             = ":info"
 	ChefClientLogLocation          = "STDOUT"
 	ChefClientValidationClientName = "corp-validator"
-	ChefClientValidationKey        = "/etc/chef/validation.pem"
 	ChefClientChefServerURL        = "https://chef.example.com/organizations/MyOrg"
-	ChefClientJSONAttribs          = "/etc/chef/run-list.json"
 	ChefClientSSLVerifyMode        = ":verify_peer"
 	ChefClientLocalKeyGeneration   = true
 	ChefClientRestTimeout          = 30
 	ChefClientHTTPRetryCount       = 3
 	ChefClientNoLazyLoad           = false
+
+	// FirstRunLogFile map - Path to the logfile for first chef run
+	FirstRunLogFile = map[string]string{
+		"darwin":  "/Library/Chef/Logs/first_chef_run.log",
+		"windows": "C:\\chef\\logs\\first_chef_run.txt",
+		"linux":   "",
+	}
 
 	// Force bool - Remove old chef files before running
 	Force = false
