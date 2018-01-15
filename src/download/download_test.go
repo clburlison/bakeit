@@ -12,12 +12,12 @@ import (
 	"github.com/clburlison/bakeit/src/config"
 )
 
-type TestDL struct {
+type downloadList struct {
 	url  string
 	hash string
 }
 
-var testDl = []TestDL{
+var testDownloadList = []downloadList{
 	{"https://gist.githubusercontent.com/clburlison/dcae73fa22fe9706a784a5b76d77dc3b/" +
 		"raw/ab56d833409e921033f53fe45431d9c22030766a/hexdump",
 		"14fd84a34d6dd237b8ec0d4c2caf3a738e9a39efcf0af9b7a85890676e0f452e"},
@@ -27,8 +27,8 @@ var testDl = []TestDL{
 }
 
 func TestDownload(t *testing.T) {
-	config.Verbose = false
-	for i, test := range testDl {
+	config.Verbose = true
+	for i, test := range testDownloadList {
 		file, err := ioutil.TempFile(os.TempDir(), "gotest_")
 		defer os.Remove(file.Name())
 		if err != nil {
