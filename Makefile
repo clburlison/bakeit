@@ -16,6 +16,8 @@ PKGDIR_TMP = ${TMPDIR}golang
 WORKSPACE = ${GOPATH}/src/github.com/clburlison/bakeit
 GOPATHS_NOVENDOR := $(shell go list ./... | grep -v /vendor/)
 
+-include config.mk
+
 ifneq ($(OS), Windows_NT)
 	CURRENT_PLATFORM = linux
 	# If on macOS, set the shell to bash explicitly
@@ -65,6 +67,10 @@ define HELP_TEXT
 	make test         - Run the Go tests
 	make lint         - Run the Go linters
 	make test-ci      - Run the Go tests with circleci locally (Linux based)
+
+  Administrative commands
+
+	changelog         - Update the CHANGELOG.md
 
 endef
 
@@ -141,3 +147,9 @@ xp-bakeit: .pre-build .pre-bakeit
 
 release-zip: xp-bakeit
 	zip -r bakeit_${VERSION}.zip build/
+
+changelog:
+	docker run -it --rm -v "$(shell pwd)":/usr/local/src/your-app \
+	clburlison/github-changelog-generator \
+	-u clburlison -p bakeit \
+	-t ${CHANGELOG_GITHUB_TOKEN}

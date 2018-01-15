@@ -20,3 +20,6 @@
 # Local project binaries
 vendor/
 build/
+
+# Project config files
+config.mk
