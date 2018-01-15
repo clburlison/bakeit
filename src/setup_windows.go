@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/clburlison/bakeit/src/chef"
-	"github.com/clburlison/bakeit/src/node"
 )
 
 func Setup() {
@@ -19,7 +18,7 @@ func Setup() {
 	}
 
 	// Write chef files
-	err = node.ChefFiles(clientConfig)
+	err = chef.WriteFiles(clientConfig)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error writing chef files: %s\n", err)
 		os.Exit(1)
