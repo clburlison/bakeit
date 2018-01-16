@@ -71,8 +71,8 @@ See [CHANGELOG.md](CHANGELOG.md)
 Link References
 -->
 
-[img-circleci-badge]:https://circleci.com/gh/clburlison/bakeit.svg?style=svg&circle-token=e56e3ca96a10956ff58dc8f504601d28778cb7c2
-[img-prs-welcome-badge]:https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[img-circleci-badge]:https://circleci.com/gh/clburlison/bakeit.svg?style=shield&circle-token=e56e3ca96a10956ff58dc8f504601d28778cb7c2
+[img-prs-welcome-badge]:https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat
 [cirlce-ci]:https://circleci.com/gh/clburlison/bakeit
 [prs-welcome]:http://makeapullrequest.com
 [download-go]: https://golang.org/dl/
