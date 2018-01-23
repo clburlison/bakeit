@@ -20,7 +20,7 @@ for bootstrapping.
 
 * No extra dependencies necessary on your end points
 * Shared code between each platform where possible
-* One file holds all configuration settings
+* One file, [config.go][], holds all configuration settings
 * Works on Mac, Linux (coming soon) and Windows
 
 ## Basic Usage
@@ -58,7 +58,7 @@ build and use this project.
     sudo /path/bakeit
 
     # Windows. Open a command prompt as administrator
-    /path/bakeit
+    /path/bakeit.exe
     ```
 
 ## Developers
