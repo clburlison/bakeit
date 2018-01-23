@@ -10,6 +10,7 @@ import (
 )
 
 // https://docs.chef.io/install_bootstrap.html#powershell-user-data
+// https://github.com/gorillalabs/go-powershell
 
 // InstallChef will check to see if chef needs to be installed
 // and if so install using the appropriate options per platform
@@ -33,7 +34,7 @@ func InstallChef() (bool, error) {
 	fmt.Printf("Installing chef...\n")
 	_, err = installMSI("C:\\Windows\\Temp\\chef-log.txt",
 		file,
-		`ADDLOCAL="ChefClientFeature,ChefSchTaskFeature,ChefPSModuleFeature"`)
+		`ADDLOCAL=ChefClientFeature,ChefSchTaskFeature,ChefPSModuleFeature`)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Install failed: %v\n", err)
 		return false, err
@@ -50,9 +51,7 @@ func InstallChef() (bool, error) {
 // string. We should then unwrap this before passing to exec
 func installMSI(logFile string, msiFile string, extraArgs string) (string, error) {
 	cmdName := "msiexec.exe"
-	// TODO: extraArgs is not being passed sucessfully to cmdArgs, as such
-	// it is currently excluded.
-	cmdArgs := []string{"/qn", "/lv", logFile, "/i", msiFile}
+	cmdArgs := []string{"/qn", "/lv", logFile, "/i", msiFile, extraArgs}
 	cmd := exec.Command(cmdName, cmdArgs...)
 	var out bytes.Buffer
 	var stderr bytes.Buffer
