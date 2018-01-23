@@ -1,27 +1,89 @@
-# bakeit [![CircleCI](https://circleci.com/gh/clburlison/bakeit.svg?style=svg&circle-token=e56e3ca96a10956ff58dc8f504601d28778cb7c2)](https://circleci.com/gh/clburlison/bakeit)
+# bakeit
 
-### Overview
+[![CircleCI][img-circleci-badge]][cirlce-ci]
+[![PRs Welcome][img-prs-welcome-badge]][prs-welcome]
 
-bakeit is designed to be a platform agnostic chef bootstrap tool. Unlike `knife bootstrap`, bakeit is written to be ran on end points.
+`bakeit` is a platform agnostic chef bootstrap tool. Unlike `knife bootstrap`,
+bakeit is written for end points not servers. All required configuration
+data is compiled into a single static binary that can be ran on the end point
+for bootstrapping.
 
-### Requirements
+## Table of Contents
 
-1. [Go 1.9](https://golang.org/dl/)
-1. Chef validator key
+* [**Features**](#features)
+* [**Basic Usage**](#basic-usage)
+* [**Developers**](#developers)
+* [**Changelog**](#changelog)
+* [**License**](#license)
 
-### Building
+## Features
 
-```bash
-# if GOPATH is unset:
-# export GOPATH=$(HOME)/go
+* No extra dependencies necessary on your end points
+* Shared code between each platform where possible
+* One file holds all configuration settings
+* Works on Mac, Linux (coming soon) and Windows
 
-# Clone the repo into GOPATH:
-git clone git@github.com:clburlison/bakeit $GOPATH/src/github.com/clburlison/bakeit
-cd $GOPATH/src/github.com/clburlison/bakeit
+## Basic Usage
 
-# Download dependencies and build:
-make deps
-make
-```
+This section is designed for users new to the Go ecosystem that just want to
+build and use this project.
 
-* More Info on [`GOPATH`](https://golang.org/doc/code.html#GOPATH)
+1. Download and install [Go 1.9][download-go]
+1. Set required Go variables
+    ```bash
+    export GOPATH=$(go env GOPATH)
+    PATH=$PATH:${GOPATH}/bin
+    ```
+1. Clone this repo
+    ```bash
+    git clone git@github.com:clburlison/bakeit $GOPATH/src/github.com/clburlison/bakeit
+    ```
+1. Download dependencies
+    ```bash
+    make deps
+    ```
+1. Modify the [config.go][] file. Make sure to modify the following keys:
+    * `ChefClientChefServerURL` - The URL to your chef server
+    * `ChefClientValidationClientName` - The name of your validator file
+    * `ValidationPEM` - The contents of your validator certificate
+    * `OrgCert` - (Optional) The contents of your organization certificate
+1. Build
+    ```bash
+    make build-all
+    ```
+1. Copy the correct output file from build/ to a machine and run it.
+1. Running instructions
+    ```bash
+    # Linux/macOS
+    sudo /path/bakeit
+
+    # Windows. Open a command prompt as administrator
+    /path/bakeit
+    ```
+
+## Developers
+Coming soon!
+<!-- https://golang.org/doc/code.html, https://blog.golang.org/cover -->
+
+## Contributing
+
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md)
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md)
+
+## License
+
+[MIT](LICENSE) © Clayton Burlison
+
+<!--
+Link References
+-->
+
+[img-circleci-badge]:https://circleci.com/gh/clburlison/bakeit.svg?style=shield&circle-token=e56e3ca96a10956ff58dc8f504601d28778cb7c2
+[img-prs-welcome-badge]:https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat
+[cirlce-ci]:https://circleci.com/gh/clburlison/bakeit
+[prs-welcome]:http://makeapullrequest.com
+[download-go]: https://golang.org/dl/
+[config.go]: https://github.com/clburlison/bakeit/blob/master/src/config/config.go
