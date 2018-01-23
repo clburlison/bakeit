@@ -10,11 +10,11 @@ for bootstrapping.
 
 ## Table of Contents
 
-[**Features**](#features)
-[**Basic Usage**](#basic-usage)
-[**Developers**](#developers)
-[**Changelog**](#changelog)
-[**License**](#license)
+* [**Features**](#features)
+* [**Basic Usage**](#basic-usage)
+* [**Developers**](#developers)
+* [**Changelog**](#changelog)
+* [**License**](#license)
 
 ## Features
 
@@ -29,10 +29,13 @@ This section is designed for users new to the Go ecosystem that just want to
 build and use this project.
 
 1. Download and install [Go 1.9][download-go]
-1. Clone this repo
+1. Set required Go variables
     ```bash
     export GOPATH=$(go env GOPATH)
     PATH=$PATH:${GOPATH}/bin
+    ```
+1. Clone this repo
+    ```bash
     git clone git@github.com:clburlison/bakeit $GOPATH/src/github.com/clburlison/bakeit
     ```
 1. Download dependencies
@@ -49,6 +52,14 @@ build and use this project.
     make build-all
     ```
 1. Copy the correct output file from build/ to a machine and run it.
+1. Running instructions
+    ```bash
+    # Linux/macOS
+    sudo /path/bakeit
+
+    # Windows. Open a command prompt as administrator
+    /path/bakeit
+    ```
 
 ## Developers
 Coming soon!
@@ -65,7 +76,6 @@ See [CHANGELOG.md](CHANGELOG.md)
 ## License
 
 [MIT](LICENSE) © Clayton Burlison
-
 
 <!--
 Link References

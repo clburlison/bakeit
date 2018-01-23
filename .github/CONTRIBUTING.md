@@ -4,8 +4,10 @@
 series [How to Contribute to an Open Source Project on GitHub][First PR]
 
 ## Major changes
-Prior to starting work on a major change open a [issue][]. This might save you
-a lot of wasted effort.
+
+Prior to starting work on a major change please open an [issue][]. This allows
+you to connect with a maintainer to verify that your change will get merged
+upstream. Doing so might save you a lot of wasted effort.
 
 ## How to contribute
 
@@ -43,8 +45,7 @@ a lot of wasted effort.
   * `make lint`
   * `make test`
 
-
-\* *This file was based off work from [Ryan L McIntyre][contributing_ref]
+_This file was based off work from [Ryan L McIntyre][contributing_ref]_
 
 <!-- link references -->
 
