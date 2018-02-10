@@ -2,9 +2,7 @@ all: build
 
 .PHONY: build
 
-ifndef ($(GOPATH))
-	GOPATH = $(HOME)/go
-endif
+GOPATH ?= $(HOME)/go
 
 PATH := $(GOPATH)/bin:$(PATH)
 VERSION = $(shell git describe --tags --always --dirty)
