@@ -80,6 +80,52 @@ var (
 		"linux":   "",
 	}
 
+	// PreFlight - command and arguments to run before bootstrap
+
+	// PreFlightCommand map - Example: "msiexec.exe"
+	PreFlightCommand = map[string]string{
+		"darwin":  "",
+		"windows": "",
+		"linux":   "",
+	}
+
+	// PreFlightArguments map - Example: {"/qn", "/i", "c:\\installer.msi"}
+	PreFlightArguments = map[string][]string{
+		"darwin":  {},
+		"windows": {},
+		"linux":   {},
+	}
+
+	// PreFlightRequired map - Set to true to quit if the preflight fails.
+	PreFlightRequired = map[string]bool{
+		"darwin":  false,
+		"windows": false,
+		"linux":   false,
+	}
+
+	// PostFlight - command and arguments to run before bootstrap
+
+	// PostFlightCommand map - Example: "msiexec.exe"
+	PostFlightCommand = map[string]string{
+		"darwin":  "",
+		"windows": "",
+		"linux":   "",
+	}
+
+	// PostFlightArguments map - Example: {"/qn", "/i", "c:\\installer.msi"}
+	PostFlightArguments = map[string][]string{
+		"darwin":  {},
+		"windows": {},
+		"linux":   {},
+	}
+
+	// PostFlightRequired map - Set to true to quit if the postflight fails.
+	PostFlightRequired = map[string]bool{
+		"darwin":  false,
+		"windows": false,
+		"linux":   false,
+	}
+
 	// Force bool - Remove old chef files before running
 	Force = false
 

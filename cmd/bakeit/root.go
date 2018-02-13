@@ -6,6 +6,7 @@ import (
 
 	"github.com/clburlison/bakeit/src"
 	"github.com/clburlison/bakeit/src/config"
+	"github.com/clburlison/bakeit/src/flight"
 	"github.com/spf13/cobra"
 )
 
@@ -17,8 +18,14 @@ var RootCmd = &cobra.Command{
 to install, configure, and run chef-client during bootstrap on nodes.
 
 Complete documentation is available at https://github.com/clburlison/bakeit/.`,
+	PreRun: func(cmd *cobra.Command, args []string) {
+		flight.Pre()
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		setup.Setup()
+	},
+	PostRun: func(cmd *cobra.Command, args []string) {
+		flight.Post()
 	},
 }
 
