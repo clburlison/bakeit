@@ -64,6 +64,7 @@ define HELP_TEXT
 	make test         - Run the Go tests
 	make lint         - Run the Go linters
 	make test-ci      - Run the Go tests with circleci locally (Linux based)
+	make test-cover   - Create test coverage and preview via web browser
 
   Administrative commands
 
@@ -98,6 +99,19 @@ test:
 
 test-ci:
 	circleci build --job build-go1.9
+
+# More info can be found https://blog.golang.org/cover & https://github.com/codecov/example-go
+# This sed command will only work on macOS
+test-cover:
+	for d in $$(go list ./... | grep -v vendor); do \
+		go test -race -coverprofile=profile.out $$d; \
+		if [ -f profile.out ]; then \
+			cat profile.out >> coverage.out ; \
+			rm profile.out ; \
+		fi \
+	done
+	$$(sed -i '' '1!{/^mode: atomic/d;}' ./coverage.out)
+	@go tool cover -html=coverage.out
 
 lint:
 	@if gofmt -l . | egrep -v ^vendor/ | grep .go; then \
