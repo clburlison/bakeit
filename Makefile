@@ -57,7 +57,7 @@ define HELP_TEXT
 	make deps         - Install dependent programs and libraries
 	make clean        - Delete all build artifacts
 
-	make build        - Build the code
+	make build        - Build the code for current platform
 	make build-all    - Build the code for all platforms
 	make package      - Build macOS package (Not yet implemented)
 	make generate     - Build updated resource.syso for windows binary
@@ -105,9 +105,7 @@ lint:
 	  echo "^- Repo contains improperly formatted go files; run gofmt -w *.go" && exit 1; \
 	  else echo "All .go files formatted correctly"; fi
 	@go vet ${GOPATHS_NOVENDOR}
-	@for pkg in ${GOPATHS_NOVENDOR}; do \
-		golint $$pkg; \
-	done
+	golint -set_exit_status `go list ./... | grep -v /vendor/`
 
 build: bakeit
 build-all: xp-bakeit

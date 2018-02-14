@@ -6,6 +6,8 @@ import (
 	"os/user"
 )
 
+// Setup is the main platform specific function that is called
+// to setup a chef node.
 func Setup() {
 	user, _ := user.Current()
 	fmt.Printf("User info: %s, %s\n", user.Uid, user.Gid)

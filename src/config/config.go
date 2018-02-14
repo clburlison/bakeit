@@ -63,15 +63,32 @@ var (
 		"linux":   "",
 	}
 
-	ChefClientLogLevel             = ":info"
-	ChefClientLogLocation          = "STDOUT"
+	// ChefClientLogLevel string - Default log level for client.rb
+	ChefClientLogLevel = ":info"
+
+	// ChefClientLogLocation string - Default log location for client.rb
+	ChefClientLogLocation = "STDOUT"
+
+	// ChefClientValidationClientName string - Validation Client Name for client.rb
 	ChefClientValidationClientName = "corp-validator"
-	ChefClientChefServerURL        = "https://chef.example.com/organizations/MyOrg"
-	ChefClientSSLVerifyMode        = ":verify_peer"
-	ChefClientLocalKeyGeneration   = true
-	ChefClientRestTimeout          = 30
-	ChefClientHTTPRetryCount       = 3
-	ChefClientNoLazyLoad           = false
+
+	// ChefClientChefServerURL string - Chef Server URL for client.rb
+	ChefClientChefServerURL = "https://chef.example.com/organizations/MyOrg"
+
+	// ChefClientSSLVerifyMode string - SSL verify mode for client.rb
+	ChefClientSSLVerifyMode = ":verify_peer"
+
+	// ChefClientLocalKeyGeneration bool - Local Key Generation for client.rb
+	ChefClientLocalKeyGeneration = true
+
+	// ChefClientRestTimeout int - Rest Timeout for client.rb
+	ChefClientRestTimeout = 30
+
+	// ChefClientHTTPRetryCount int - HTTP Retry Count for client.rb
+	ChefClientHTTPRetryCount = 3
+
+	// ChefClientNoLazyLoad bool - No Lazy Load mode for client.rb
+	ChefClientNoLazyLoad = false
 
 	// FirstRunLogFile map - Path to the logfile for first chef run
 	FirstRunLogFile = map[string]string{

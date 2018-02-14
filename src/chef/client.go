@@ -1,4 +1,4 @@
-// Package client provides resources for configuring a chef client
+// Package chef provides resources for configuring a chef client.rb file
 package chef
 
 import (

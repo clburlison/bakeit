@@ -7,7 +7,8 @@ import (
 	"strings"
 )
 
-// GetSerialNumber - Return the current serial number for the node
+// GetSerialNumber - Return the current serial number for the node or blank if
+// unable to determine a serial number.
 func GetSerialNumber() string {
 	cmd := exec.Command("wmic", "bios", "get", "serialnumber")
 	var out bytes.Buffer

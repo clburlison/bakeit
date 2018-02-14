@@ -7,7 +7,7 @@ import (
 )
 
 // GetNodeInfo - return facts about current node
-func GetNodeInfo() (*NodeInfoObject, error) {
+func GetNodeInfo() (*InfoObject, error) {
 	cmd := exec.Command("/usr/bin/sw_vers")
 	var out bytes.Buffer
 	var stderr bytes.Buffer
@@ -21,6 +21,6 @@ func GetNodeInfo() (*NodeInfoObject, error) {
 	productName := strings.TrimSpace(strings.Split(data[0], ":")[1])
 	productVersion := strings.TrimSpace(strings.Split(data[1], ":")[1])
 	buildVersion := strings.TrimSpace(strings.Split(data[2], ":")[1])
-	mio := &NodeInfoObject{productName, productVersion, buildVersion}
+	mio := &InfoObject{productName, productVersion, buildVersion}
 	return mio, nil
 }

@@ -1,7 +1,7 @@
 package node
 
-// NodeInfoObject - Hold node specific data
-type NodeInfoObject struct {
+// InfoObject - Hold node specific data
+type InfoObject struct {
 	ProductName    string
 	ProductVersion string
 	BuildVersion   string

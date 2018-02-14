@@ -57,11 +57,9 @@ func runFlight(timing string) error {
 			fmt.Printf("Command required. Exiting...\n")
 			return err
 		}
-		if !flightReq {
-			// if error and not required, log and continue
-			fmt.Printf("Command not required. Continuing...\n")
-			return nil
-		}
+		// if error and not required, log and continue
+		fmt.Printf("Command not required. Continuing...\n")
+		return nil
 	}
 	// if success. log and continue
 	fmt.Printf("%sflight command completed successfully\n", timing)

@@ -8,6 +8,8 @@ import (
 	"github.com/clburlison/bakeit/src/chef"
 )
 
+// Setup is the main platform specific function that is called
+// to setup a chef node.
 func Setup() {
 	// Get the current node serial number
 	// TODO: Limit this to window 7+. Will need to verify server lineup as well?
