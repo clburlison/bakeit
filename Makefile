@@ -12,7 +12,6 @@ REVSHORT = $(shell git rev-parse --short HEAD)
 USER = $(shell whoami)
 PKGDIR_TMP = ${TMPDIR}golang
 WORKSPACE = ${GOPATH}/src/github.com/clburlison/bakeit
-GOPATHS_NOVENDOR := $(shell go list ./... | grep -v /vendor/)
 
 -include config.mk
 
@@ -95,7 +94,7 @@ deps: check-deps
 	dep ensure -vendor-only -v
 
 test:
-	go test -cover -race -v ${GOPATHS_NOVENDOR}
+	go test -cover -race -v `go list ./...`
 
 test-ci:
 	circleci build --job build-go1.9
@@ -104,7 +103,7 @@ lint:
 	@if gofmt -l . | egrep -v ^vendor/ | grep .go; then \
 	  echo "^- Repo contains improperly formatted go files; run gofmt -w *.go" && exit 1; \
 	  else echo "All .go files formatted correctly"; fi
-	@go vet ${GOPATHS_NOVENDOR}
+	@go vet `go list ./...`
 	golint -set_exit_status `go list ./... | grep -v /vendor/`
 
 build: bakeit
