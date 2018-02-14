@@ -4,6 +4,7 @@
 
 **Implemented enhancements:**
 
+- Implement admin configured pre/post install commands [\#33](https://github.com/clburlison/bakeit/issues/33)
 - Parsing from https://downloads.chef.io/chef/ [\#15](https://github.com/clburlison/bakeit/issues/15)
 - Circle CI for tests/linting [\#10](https://github.com/clburlison/bakeit/issues/10)
 - Log to file [\#6](https://github.com/clburlison/bakeit/issues/6)
@@ -12,11 +13,13 @@
 
 **Fixed bugs:**
 
+- make lint should fail CI [\#27](https://github.com/clburlison/bakeit/issues/27)
 - Need better error handling in checkExt [\#1](https://github.com/clburlison/bakeit/issues/1)
 
 **Closed issues:**
 
 - Config chef for initial run [\#23](https://github.com/clburlison/bakeit/issues/23)
+- Install msi [\#12](https://github.com/clburlison/bakeit/issues/12)
 - Template out client.rb file [\#9](https://github.com/clburlison/bakeit/issues/9)
 - Run chef post install/prep [\#7](https://github.com/clburlison/bakeit/issues/7)
 - Get Node serial number [\#5](https://github.com/clburlison/bakeit/issues/5)
@@ -24,6 +27,11 @@
 
 **Merged pull requests:**
 
+- Lint fix [\#37](https://github.com/clburlison/bakeit/pull/37) ([clburlison](https://github.com/clburlison))
+- Added support for pre/post flight commands. [\#35](https://github.com/clburlison/bakeit/pull/35) ([1dustindavis](https://github.com/1dustindavis))
+- ifndef is not working. Replaced with ?= operator. [\#34](https://github.com/clburlison/bakeit/pull/34) ([1dustindavis](https://github.com/1dustindavis))
+- fix: Support ADDLOCAL option with msi installs [\#32](https://github.com/clburlison/bakeit/pull/32) ([clburlison](https://github.com/clburlison))
+- Documentation updates [\#31](https://github.com/clburlison/bakeit/pull/31) ([clburlison](https://github.com/clburlison))
 - feat: Win binary to require admin perms on launch [\#22](https://github.com/clburlison/bakeit/pull/22) ([clburlison](https://github.com/clburlison))
 - docs: Add basic readme [\#21](https://github.com/clburlison/bakeit/pull/21) ([clburlison](https://github.com/clburlison))
 
