@@ -2,14 +2,14 @@
     "FixedFileInfo": {
         "FileVersion": {
             "Major": 0,
-            "Minor": 0,
-            "Patch": 1,
+            "Minor": 2,
+            "Patch": 0,
             "Build": 0
         },
         "ProductVersion": {
             "Major": 0,
-            "Minor": 0,
-            "Patch": 1,
+            "Minor": 2,
+            "Patch": 0,
             "Build": 0
         },
         "FileFlagsMask": "3f",
@@ -21,15 +21,15 @@
     "StringFileInfo": {
         "Comments": "",
         "CompanyName": "clburlison.com",
-        "FileDescription": "A bootstrapping tool for chef",
-        "FileVersion": "v0.0.1.0",
+        "FileDescription": "A platform agnostic chef bootstrap tool",
+        "FileVersion": "v0.2.0",
         "InternalName": "bakeit",
-        "LegalCopyright": "© 2017 Clayton Burlison. Licensed under MIT.",
+        "LegalCopyright": "© 2018 Clayton Burlison. Licensed under MIT.",
         "LegalTrademarks": "",
         "OriginalFilename": "bakeit",
         "PrivateBuild": "",
         "ProductName": "bakeit",
-        "ProductVersion": "v0.0.1.0",
+        "ProductVersion": "v0.2.0",
         "SpecialBuild": ""
     },
     "VarFileInfo": {
