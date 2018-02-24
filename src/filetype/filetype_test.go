@@ -9,8 +9,7 @@ type TestFileType struct {
 }
 
 var testFileType = []TestFileType{
-	// TODO: Unclear why the pkg test fails randomly.
-	// {"./testdata/echo.pkg", "xar", "application/x-xar"},
+	{"./testdata/echo.pkg", "xar", "application/x-xar"},
 	{"./testdata/echo.dmg", "zlib", "application/zlib"},
 }
 

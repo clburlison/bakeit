@@ -15,17 +15,17 @@ var zlibType = filetype.NewType("zlib", "application/zlib")
 // For .pkg files
 func xarMatcher(buf []byte) bool {
 	return len(buf) > 1 &&
-		buf[0] == 0x78 && buf[1] == 0x61 && buf[2] == 0x72
+		buf[0] == 0x78 && buf[1] == 0x61 && buf[2] == 0x72 && buf[3] == 0x21
 }
 
 // For .dmg files based off rfc6713
 func zlibMatcher(buf []byte) bool {
 	headBytes := readInt16([]byte{buf[0], buf[1]})
 	return len(buf) > 1 &&
+		divisibleBy(headBytes, 31) == true &&
 		buf[0] == 0x78 || buf[0] == 0x08 || buf[0] == 0x18 ||
 		buf[0] == 0x28 || buf[0] == 0x38 || buf[0] == 0x48 ||
-		buf[0] == 0x58 || buf[0] == 0x68 &&
-		divisibleBy(headBytes, 31) == true
+		buf[0] == 0x58 || buf[0] == 0x68
 }
 
 func readInt16(data []byte) (ret int16) {
