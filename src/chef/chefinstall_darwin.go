@@ -5,7 +5,9 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 
+	"github.com/clburlison/bakeit/src/config"
 	"github.com/clburlison/bakeit/src/download"
 	"github.com/clburlison/bakeit/src/filetype"
 	"github.com/groob/mackit/dmgutils"
@@ -30,6 +32,18 @@ func InstallChef() (bool, error) {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error downloading file: %s\n", err)
 		return false, err
+	}
+
+	// Verify the downloaded file matches the expected checksum value
+	checksum := config.ChefClientURLChecksum[runtime.GOOS]
+	if checksum != "" {
+		hash, err := CheckHash(file, config.ChefClientURLChecksum[runtime.GOOS])
+		if err != nil {
+			return false, fmt.Errorf("InstallChef: Unable to verify hash value: %s", err)
+		}
+		if hash != true {
+			return false, fmt.Errorf("InstallChef: Hash value does not match")
+		}
 	}
 
 	var (

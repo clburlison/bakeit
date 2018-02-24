@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime"
 
+	"github.com/clburlison/bakeit/src/config"
 	"github.com/clburlison/bakeit/src/download"
 )
 
@@ -28,8 +30,20 @@ func InstallChef() (bool, error) {
 	file, err := download.Download(download.GetChefURL(), ".")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error downloading file: %s\n", err)
+		return false, err
 	}
-	fmt.Printf("Downloaded file: %s\n", file)
+
+	// Verify the downloaded file matches the expected checksum value
+	checksum := config.ChefClientURLChecksum[runtime.GOOS]
+	if checksum != "" {
+		hash, err := CheckHash(file, config.ChefClientURLChecksum[runtime.GOOS])
+		if err != nil {
+			return false, fmt.Errorf("InstallChef: Unable to verify hash value: %s", err)
+		}
+		if hash != true {
+			return false, fmt.Errorf("InstallChef: Hash value does not match")
+		}
+	}
 
 	fmt.Printf("Installing chef...\n")
 	_, err = installMSI("C:\\Windows\\Temp\\chef-log.txt",
