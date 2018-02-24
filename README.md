@@ -34,6 +34,10 @@ build and use this project.
     export GOPATH=$(go env GOPATH)
     PATH=$PATH:${GOPATH}/bin
     ```
+1. Create the proper go path
+    ```bash
+    mkdir -p $GOPATH/src/github.com/clburlison/bakeit
+    ```
 1. Clone this repo
     ```bash
     git clone git@github.com:clburlison/bakeit $GOPATH/src/github.com/clburlison/bakeit
