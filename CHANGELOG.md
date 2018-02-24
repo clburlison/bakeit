@@ -27,8 +27,6 @@
 
 **Merged pull requests:**
 
-- Lint fix [\#37](https://github.com/clburlison/bakeit/pull/37) ([clburlison](https://github.com/clburlison))
-- Added support for pre/post flight commands. [\#35](https://github.com/clburlison/bakeit/pull/35) ([1dustindavis](https://github.com/1dustindavis))
 - ifndef is not working. Replaced with ?= operator. [\#34](https://github.com/clburlison/bakeit/pull/34) ([1dustindavis](https://github.com/1dustindavis))
 - fix: Support ADDLOCAL option with msi installs [\#32](https://github.com/clburlison/bakeit/pull/32) ([clburlison](https://github.com/clburlison))
 - Documentation updates [\#31](https://github.com/clburlison/bakeit/pull/31) ([clburlison](https://github.com/clburlison))
