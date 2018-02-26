@@ -1,32 +1,33 @@
 # Change Log
 
-## [Unreleased](https://github.com/clburlison/bakeit/tree/HEAD)
-
+## [0.2.0](https://github.com/clburlison/bakeit/tree/0.2.0) (2018-02-26)
 **Implemented enhancements:**
 
 - Implement admin configured pre/post install commands [\#33](https://github.com/clburlison/bakeit/issues/33)
-- Parsing from https://downloads.chef.io/chef/ [\#15](https://github.com/clburlison/bakeit/issues/15)
 - Circle CI for tests/linting [\#10](https://github.com/clburlison/bakeit/issues/10)
+- Parsing from https://downloads.chef.io/chef/ [\#15](https://github.com/clburlison/bakeit/issues/15)
+- shasum 256 check for downloads [\#14](https://github.com/clburlison/bakeit/issues/14)
 - Log to file [\#6](https://github.com/clburlison/bakeit/issues/6)
 - Admin access on windows [\#2](https://github.com/clburlison/bakeit/issues/2)
 - Windows support [\#26](https://github.com/clburlison/bakeit/pull/26) ([clburlison](https://github.com/clburlison))
 
 **Fixed bugs:**
 
-- make lint should fail CI [\#27](https://github.com/clburlison/bakeit/issues/27)
 - Need better error handling in checkExt [\#1](https://github.com/clburlison/bakeit/issues/1)
+- make lint should fail CI [\#27](https://github.com/clburlison/bakeit/issues/27)
 
 **Closed issues:**
 
+- Get Node serial number [\#5](https://github.com/clburlison/bakeit/issues/5)
+- Get Node serial number [\#3](https://github.com/clburlison/bakeit/issues/3)
 - Config chef for initial run [\#23](https://github.com/clburlison/bakeit/issues/23)
 - Install msi [\#12](https://github.com/clburlison/bakeit/issues/12)
 - Template out client.rb file [\#9](https://github.com/clburlison/bakeit/issues/9)
 - Run chef post install/prep [\#7](https://github.com/clburlison/bakeit/issues/7)
-- Get Node serial number [\#5](https://github.com/clburlison/bakeit/issues/5)
-- Get Node serial number [\#3](https://github.com/clburlison/bakeit/issues/3)
 
 **Merged pull requests:**
 
+- Sha support [\#41](https://github.com/clburlison/bakeit/pull/41) ([clburlison](https://github.com/clburlison))
 - ifndef is not working. Replaced with ?= operator. [\#34](https://github.com/clburlison/bakeit/pull/34) ([1dustindavis](https://github.com/1dustindavis))
 - fix: Support ADDLOCAL option with msi installs [\#32](https://github.com/clburlison/bakeit/pull/32) ([clburlison](https://github.com/clburlison))
 - Documentation updates [\#31](https://github.com/clburlison/bakeit/pull/31) ([clburlison](https://github.com/clburlison))
