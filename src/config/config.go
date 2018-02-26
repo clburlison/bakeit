@@ -3,15 +3,15 @@ package config
 var (
 	// ChefClientURL map - Accepts a full URL to a chef-client. Can be blank to download from chef.io.
 	ChefClientURL = map[string]string{
-		"darwin":  "https://packages.chef.io/files/stable/chef/13.7.16/mac_os_x/10.13/chef-13.7.16-1.dmg",
-		"windows": "https://packages.chef.io/files/stable/chef/13.7.16/windows/2016/chef-client-13.7.16-1-x64.msi",
+		"darwin":  "",
+		"windows": "",
 		"linux":   "",
 	}
 
 	// ChefClientURLChecksum map - The sha256 hash of the download URLs from above. If blank no check is ran.
 	ChefClientURLChecksum = map[string]string{
-		"darwin":  "58fa1cd31a120132b22bedffdee481572fa1d24e8a12c6f33678437b2dc26fbd",
-		"windows": "745ac92f53f54ceb446d628bc092652ba4a07726c4fd801b273ee8d2863dbc9b",
+		"darwin":  "",
+		"windows": "",
 		"linux":   "",
 	}
 

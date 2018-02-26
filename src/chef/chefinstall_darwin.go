@@ -37,7 +37,7 @@ func InstallChef() (bool, error) {
 	// Verify the downloaded file matches the expected checksum value
 	checksum := config.ChefClientURLChecksum[runtime.GOOS]
 	if checksum != "" {
-		hash, err := CheckHash(file, config.ChefClientURLChecksum[runtime.GOOS])
+		hash, err := download.CheckHash(file, config.ChefClientURLChecksum[runtime.GOOS])
 		if err != nil {
 			return false, fmt.Errorf("InstallChef: Unable to verify hash value: %s", err)
 		}

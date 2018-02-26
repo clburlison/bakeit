@@ -1,4 +1,4 @@
-package chef
+package download
 
 import (
 	"crypto/sha256"
@@ -18,8 +18,7 @@ func CheckHash(file string, sha string) (bool, error) {
 	defer f.Close()
 	h := sha256.New()
 	if _, err := io.Copy(h, f); err != nil {
-		// fmt.("#%d: Unable to copy download to temp file %s\n", i, err)
-		return false, err
+		return false, fmt.Errorf("Unable to verify hash due to IO error: %s", err)
 	}
 	shaHash := hex.EncodeToString(h.Sum(nil))
 	if shaHash != sha {
