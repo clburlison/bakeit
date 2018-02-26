@@ -8,6 +8,13 @@ var (
 		"linux":   "",
 	}
 
+	// ChefClientURLChecksum map - The sha256 hash of the download URLs from above. If blank no check is ran.
+	ChefClientURLChecksum = map[string]string{
+		"darwin":  "",
+		"windows": "",
+		"linux":   "",
+	}
+
 	// ChefClientVersion string - Accepts "latest" or a specific version IE - 13.6.4
 	ChefClientVersion = "latest"
 
