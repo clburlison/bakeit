@@ -162,3 +162,5 @@ changelog:
 	clburlison/github-changelog-generator \
 	-u clburlison -p bakeit \
 	-t ${CHANGELOG_GITHUB_TOKEN}
+	git add "CHANGELOG.md"
+	git commit -m "chore: Update changelog"
