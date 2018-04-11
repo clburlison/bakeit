@@ -2,6 +2,7 @@
 
 [![CircleCI][img-circleci-badge]][cirlce-ci]
 [![PRs Welcome][img-prs-welcome-badge]][prs-welcome]
+[![Go Report Card][img-reportcard-badge]][reportcard]
 
 `bakeit` is a platform agnostic chef bootstrap tool. Unlike `knife bootstrap`,
 bakeit is written for end points not servers. All required configuration
@@ -87,7 +88,9 @@ Link References
 
 [img-circleci-badge]:https://circleci.com/gh/clburlison/bakeit.svg?style=shield&circle-token=e56e3ca96a10956ff58dc8f504601d28778cb7c2
 [img-prs-welcome-badge]:https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat
+[img-reportcard-badge]:https://goreportcard.com/badge/github.com/clburlison/bakeit
 [cirlce-ci]:https://circleci.com/gh/clburlison/bakeit
 [prs-welcome]:http://makeapullrequest.com
+[reportcard]:https://goreportcard.com/report/github.com/clburlison/bakeit
 [download-go]: https://golang.org/dl/
 [config.go]: https://github.com/clburlison/bakeit/blob/master/src/config/config.go
