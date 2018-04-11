@@ -91,7 +91,7 @@ func InstallChef() (bool, error) {
 		fmt.Fprintf(os.Stderr, "Install failed: %v\n", err)
 		return false, err
 	}
-	fmt.Printf("Chef installed sucessfully\n")
+	fmt.Printf("Chef installed successfully\n")
 
 	// Unmount dmg files
 	if ext == "zlib" {

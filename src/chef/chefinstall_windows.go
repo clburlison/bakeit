@@ -53,7 +53,7 @@ func InstallChef() (bool, error) {
 		fmt.Fprintf(os.Stderr, "Install failed: %v\n", err)
 		return false, err
 	}
-	fmt.Printf("Chef installed sucessfully\n")
+	fmt.Printf("Chef installed successfully\n")
 
 	// Remove downloaded file
 	os.Remove(file)
