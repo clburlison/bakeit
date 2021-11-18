@@ -1,3 +1,6 @@
+This was a side project to learn some Go. Don't use this in production. Support not given, use at your own risk, etc. 
+
+
 # bakeit
 
 [![CircleCI][img-circleci-badge]][cirlce-ci]
